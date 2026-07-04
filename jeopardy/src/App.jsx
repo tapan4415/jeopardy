@@ -25,13 +25,19 @@ function App() {
   const [clueOwners, setClueOwners] = useState(saved?.clueOwners || {});
   const [selectedClue, setSelectedClue] = useState(null);
   const [categories, setCategories] = useState([]);
+  const [isTestRound, setIsTestRound] = useState(saved?.isTestRound || false);
 
-  useEffect(() => {
-    fetch('./data/questions.json')
+  const loadQuestions = (testMode = false) => {
+    const url = testMode ? './data/test-questions.json' : './data/questions.json';
+    fetch(url)
       .then((res) => res.json())
       .then((data) => setCategories(data.categories))
       .catch((err) => console.error('Failed to load questions:', err));
-  }, []);
+  };
+
+  useEffect(() => {
+    loadQuestions(isTestRound);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Persist state to localStorage on changes
   useEffect(() => {
@@ -42,13 +48,31 @@ function App() {
       currentTurn,
       usedClues: [...usedClues],
       clueOwners,
+      isTestRound,
     };
     localStorage.setItem('jeopardy-state', JSON.stringify(state));
-  }, [phase, groups, scores, currentTurn, usedClues, clueOwners]);
+  }, [phase, groups, scores, currentTurn, usedClues, clueOwners, isTestRound]);
 
   const totalClues = categories.length * 5;
 
   const handleStartGame = (groupNames) => {
+    setIsTestRound(false);
+    loadQuestions(false);
+    setGroups(groupNames);
+    const initialScores = {};
+    groupNames.forEach((name) => {
+      initialScores[name] = 0;
+    });
+    setScores(initialScores);
+    setCurrentTurn(0);
+    setUsedClues(new Set());
+    setClueOwners({});
+    setPhase('playing');
+  };
+
+  const handleTestRound = (groupNames) => {
+    setIsTestRound(true);
+    loadQuestions(true);
     setGroups(groupNames);
     const initialScores = {};
     groupNames.forEach((name) => {
@@ -122,7 +146,7 @@ function App() {
   };
 
   if (phase === 'setup') {
-    return <SetupScreen onStart={handleStartGame} />;
+    return <SetupScreen onStart={handleStartGame} onTestRound={handleTestRound} />;
   }
 
   if (phase === 'gameOver') {

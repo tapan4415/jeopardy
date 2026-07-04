@@ -198,6 +198,23 @@
   font-weight: bold;
 }
 
+.btn-start-timer {
+  margin-top: 1.5rem;
+  padding: 0.8rem 2rem;
+  font-size: 1.1rem;
+  background: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+.btn-start-timer:hover {
+  background: #66bb6a;
+}
+
 .answer-revealed {
   text-align: center;
   font-size: 1.8rem;

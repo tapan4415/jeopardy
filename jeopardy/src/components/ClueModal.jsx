@@ -9,7 +9,9 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed }) {
   const [showAnswer, setShowAnswer] = useState(false);
   const [showPassMessage, setShowPassMessage] = useState(false);
   const [nextTeamName, setNextTeamName] = useState('');
-  const [timerPaused, setTimerPaused] = useState(false);
+  const [waitingToStart, setWaitingToStart] = useState(false);
+  const [pendingNextIndex, setPendingNextIndex] = useState(null);
+  const [pendingAttempts, setPendingAttempts] = useState(0);
 
   const duration = isFirstTeam ? 20 : 5;
   const { timeLeft, isExpired, start, stop, reset } = useTimer(duration);
@@ -25,31 +27,32 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed }) {
       return;
     }
 
-    // Show "next team" popup before passing
     const nextIndex = (answeringTeamIndex + 1) % groups.length;
     setNextTeamName(groups[nextIndex]);
     setShowPassMessage(true);
-    stop(); // Pause timer during transition
-    setTimerPaused(true);
-
-    // After 2 seconds, transition to next team
-    setTimeout(() => {
-      setShowPassMessage(false);
-      setTimerPaused(false);
-      setTeamsAttempted(newAttempts);
-      setIsFirstTeam(false);
-      setAnsweringTeamIndex(nextIndex);
-    }, 2000);
+    setPendingNextIndex(nextIndex);
+    setPendingAttempts(newAttempts);
+    stop();
+    setWaitingToStart(true);
   }, [teamsAttempted, groups, answeringTeamIndex, stop]);
 
-  // Restart timer when team changes (after pass transition)
+  // Host clicks "Start Timer" to begin next team's turn
+  const handleStartNextTeam = () => {
+    setShowPassMessage(false);
+    setWaitingToStart(false);
+    setTeamsAttempted(pendingAttempts);
+    setIsFirstTeam(false);
+    setAnsweringTeamIndex(pendingNextIndex);
+  };
+
+  // Restart timer when team changes
   useEffect(() => {
-    if (!isFirstTeam && !timerPaused) {
+    if (!isFirstTeam && !waitingToStart) {
       reset();
       const t = setTimeout(() => start(), 50);
       return () => clearTimeout(t);
     }
-  }, [answeringTeamIndex, timerPaused]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [answeringTeamIndex, waitingToStart]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Auto-pass when timer expires
   useEffect(() => {
@@ -60,7 +63,6 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed }) {
 
   const handleCorrect = () => {
     setShowAnswer(true);
-    // Brief delay to show the answer, then close
     setTimeout(() => {
       onCorrect(answeringTeamIndex);
     }, 2500);
@@ -71,7 +73,7 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed }) {
   return (
     <div className="clue-modal-overlay">
       <div className="clue-modal">
-        {/* Pass message overlay */}
+        {/* Pass message overlay with Start Timer button */}
         {showPassMessage && (
           <div className="pass-overlay">
             <div className="pass-message">
@@ -79,6 +81,9 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed }) {
               <div className="next-team-announce">
                 Next up: <span className="next-team-name">{nextTeamName}</span>
               </div>
+              <button className="btn-start-timer" onClick={handleStartNextTeam}>
+                ▶ Start Timer
+              </button>
             </div>
           </div>
         )}
@@ -108,7 +113,6 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed }) {
         <div className="clue-value">{clue.value}</div>
         <div className="clue-text">{clue.clue}</div>
 
-        {/* Show image if clue has one */}
         {clue.image && (
           <div className="clue-image-container">
             <img src={clue.image} alt="Clue" className="clue-image" />

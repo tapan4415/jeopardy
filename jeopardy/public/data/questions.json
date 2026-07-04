@@ -43,7 +43,7 @@
     {
       "name": "Sports",
       "clues": [
-        { "value": 20, "clue": "This sport is known as 'the beautiful game'.", "answer": "What is soccer (football)?" },
+        { "value": 20, "clue": "Recognize this sport:", "answer": "What is soccer (football)?", "image": "./data/images/soccer.jpg" },
         { "value": 40, "clue": "This tennis tournament is played on grass courts in London.", "answer": "What is Wimbledon?" },
         { "value": 60, "clue": "This athlete holds the record for most Olympic gold medals.", "answer": "Who is Michael Phelps?" },
         { "value": 80, "clue": "This sport uses a shuttlecock.", "answer": "What is badminton?" },

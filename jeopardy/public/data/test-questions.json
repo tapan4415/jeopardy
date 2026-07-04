@@ -1,0 +1,14 @@
+{
+  "categories": [
+    {
+      "name": "Practice Round",
+      "clues": [
+        { "value": 20, "clue": "What color do you get when you mix red and blue?", "answer": "What is purple?" },
+        { "value": 40, "clue": "How many legs does a spider have?", "answer": "What is 8?" },
+        { "value": 60, "clue": "What is the capital of France?", "answer": "What is Paris?" },
+        { "value": 80, "clue": "Which planet is closest to the Sun?", "answer": "What is Mercury?" },
+        { "value": 100, "clue": "What year did the Titanic sink?", "answer": "What is 1912?" }
+      ]
+    }
+  ]
+}

@@ -83,7 +83,6 @@ body {
 .start-button {
   width: 100%;
   padding: 1rem;
-  margin-top: 1.5rem;
   background: #ffcc00;
   color: #060ce9;
   border: none;
@@ -96,6 +95,30 @@ body {
 
 .start-button:hover {
   background: #ffd633;
+}
+
+.setup-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.test-round-button {
+  width: 100%;
+  padding: 0.8rem;
+  background: transparent;
+  color: #ffcc00;
+  border: 2px solid #ffcc00;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.test-round-button:hover {
+  background: rgba(255, 204, 0, 0.1);
 }
 
 /* Game Container */

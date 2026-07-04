@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import '../styles/App.css';
 
-function SetupScreen({ onStart }) {
+function SetupScreen({ onStart, onTestRound }) {
   const [groupNames, setGroupNames] = useState(['', '', '', '']);
 
   const handleChange = (index, value) => {
@@ -10,16 +10,21 @@ function SetupScreen({ onStart }) {
     setGroupNames(updated);
   };
 
-  const handleSubmit = (e) => {
+  const getNames = () => groupNames.map((name, i) => name.trim() || `Group ${i + 1}`);
+
+  const handleStartGame = (e) => {
     e.preventDefault();
-    const names = groupNames.map((name, i) => name.trim() || `Group ${i + 1}`);
-    onStart(names);
+    onStart(getNames());
+  };
+
+  const handleTestRound = () => {
+    onTestRound(getNames());
   };
 
   return (
     <div className="setup-screen">
       <h1 className="setup-title">JEOPARDY!</h1>
-      <form onSubmit={handleSubmit} className="setup-form">
+      <form onSubmit={handleStartGame} className="setup-form">
         <h2>Enter Group Names</h2>
         {groupNames.map((name, index) => (
           <div key={index} className="group-input">
@@ -34,9 +39,14 @@ function SetupScreen({ onStart }) {
             />
           </div>
         ))}
-        <button type="submit" className="start-button">
-          Start Game
-        </button>
+        <div className="setup-buttons">
+          <button type="submit" className="start-button">
+            Start Game
+          </button>
+          <button type="button" className="test-round-button" onClick={handleTestRound}>
+            Test Round
+          </button>
+        </div>
       </form>
     </div>
   );
