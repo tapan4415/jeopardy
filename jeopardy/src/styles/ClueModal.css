@@ -162,3 +162,66 @@
 .reveal-button:hover {
   background: #ffd633;
 }
+
+/* Pass message overlay */
+.pass-overlay,
+.answer-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.9);
+  border-radius: 12px;
+  z-index: 10;
+  animation: fadeIn 0.3s ease;
+}
+
+.pass-message {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #f44336;
+  font-weight: bold;
+}
+
+.next-team-announce {
+  margin-top: 1rem;
+  font-size: 1.3rem;
+  color: #ffffff;
+}
+
+.next-team-name {
+  color: #ffcc00;
+  font-weight: bold;
+}
+
+.answer-revealed {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #4caf50;
+  font-weight: bold;
+}
+
+.answer-revealed .answer-text {
+  margin-top: 1rem;
+  font-size: 1.4rem;
+  color: #ffffff;
+}
+
+/* Image clues */
+.clue-image-container {
+  margin: 1rem 0;
+  display: flex;
+  justify-content: center;
+}
+
+.clue-image {
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  object-fit: contain;
+}
