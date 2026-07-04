@@ -22,6 +22,7 @@ function App() {
   const [scores, setScores] = useState(saved?.scores || {});
   const [currentTurn, setCurrentTurn] = useState(saved?.currentTurn || 0);
   const [usedClues, setUsedClues] = useState(new Set(saved?.usedClues || []));
+  const [clueOwners, setClueOwners] = useState(saved?.clueOwners || {});
   const [selectedClue, setSelectedClue] = useState(null);
   const [categories, setCategories] = useState([]);
 
@@ -40,9 +41,10 @@ function App() {
       scores,
       currentTurn,
       usedClues: [...usedClues],
+      clueOwners,
     };
     localStorage.setItem('jeopardy-state', JSON.stringify(state));
-  }, [phase, groups, scores, currentTurn, usedClues]);
+  }, [phase, groups, scores, currentTurn, usedClues, clueOwners]);
 
   const totalClues = categories.length * 5;
 
@@ -55,6 +57,7 @@ function App() {
     setScores(initialScores);
     setCurrentTurn(0);
     setUsedClues(new Set());
+    setClueOwners({});
     setPhase('playing');
   };
 
@@ -65,20 +68,20 @@ function App() {
     setSelectedClue({ ...clue, categoryIndex, clueIndex });
   };
 
-  const handleJudge = (correct) => {
-    if (correct) {
-      setScores((prev) => ({
-        ...prev,
-        [groups[currentTurn]]: prev[groups[currentTurn]] + selectedClue.value,
-      }));
-    }
+  // Called when a team answers correctly
+  const handleCorrect = (answeringTeamIndex) => {
+    const teamName = groups[answeringTeamIndex];
+    setScores((prev) => ({
+      ...prev,
+      [teamName]: prev[teamName] + selectedClue.value,
+    }));
 
     const key = `${selectedClue.categoryIndex}-${selectedClue.clueIndex}`;
     const newUsed = new Set(usedClues);
     newUsed.add(key);
     setUsedClues(newUsed);
+    setClueOwners((prev) => ({ ...prev, [key]: teamName }));
     setSelectedClue(null);
-
     setCurrentTurn((prev) => (prev + 1) % groups.length);
 
     if (newUsed.size >= totalClues) {
@@ -86,11 +89,13 @@ function App() {
     }
   };
 
-  const handleTimeUp = () => {
+  // Called when all teams fail to answer
+  const handleAllFailed = () => {
     const key = `${selectedClue.categoryIndex}-${selectedClue.clueIndex}`;
     const newUsed = new Set(usedClues);
     newUsed.add(key);
     setUsedClues(newUsed);
+    // No owner — cell stays blank
     setSelectedClue(null);
     setCurrentTurn((prev) => (prev + 1) % groups.length);
 
@@ -106,6 +111,7 @@ function App() {
     setScores({});
     setCurrentTurn(0);
     setUsedClues(new Set());
+    setClueOwners({});
     setSelectedClue(null);
   };
 
@@ -129,13 +135,16 @@ function App() {
       <GameBoard
         categories={categories}
         usedClues={usedClues}
+        clueOwners={clueOwners}
         onSelectClue={handleSelectClue}
       />
       {selectedClue && (
         <ClueModal
           clue={selectedClue}
-          onJudge={handleJudge}
-          onTimeUp={handleTimeUp}
+          groups={groups}
+          currentTurn={currentTurn}
+          onCorrect={handleCorrect}
+          onAllFailed={handleAllFailed}
         />
       )}
     </div>

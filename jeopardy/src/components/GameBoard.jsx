@@ -1,6 +1,6 @@
 import '../styles/GameBoard.css';
 
-function GameBoard({ categories, usedClues, onSelectClue }) {
+function GameBoard({ categories, usedClues, clueOwners, onSelectClue }) {
   const values = [20, 40, 60, 80, 100];
 
   return (
@@ -17,14 +17,15 @@ function GameBoard({ categories, usedClues, onSelectClue }) {
         categories.map((_, catIndex) => {
           const key = `${catIndex}-${rowIndex}`;
           const isUsed = usedClues.has(key);
+          const owner = clueOwners[key];
           return (
             <button
               key={key}
-              className={`clue-cell ${isUsed ? 'used' : ''}`}
+              className={`clue-cell ${isUsed ? (owner ? 'owned' : 'used') : ''}`}
               onClick={() => !isUsed && onSelectClue(catIndex, rowIndex)}
               disabled={isUsed}
             >
-              {isUsed ? '' : `${value}`}
+              {isUsed ? (owner || '') : `${value}`}
             </button>
           );
         })

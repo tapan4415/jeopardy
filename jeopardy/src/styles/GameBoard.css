@@ -49,3 +49,12 @@
   cursor: default;
   color: transparent;
 }
+
+.clue-cell.owned {
+  background: #1a5e1a;
+  border-color: #4caf50;
+  cursor: default;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
