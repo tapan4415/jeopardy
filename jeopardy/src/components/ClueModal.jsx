@@ -45,7 +45,7 @@ function ClueModal({ clue, onJudge, onTimeUp }) {
         </div>
         <div className="timer-text">{timeLeft}s</div>
 
-        <div className="clue-value">${clue.value}</div>
+        <div className="clue-value">{clue.value}</div>
         <div className="clue-text">{clue.clue}</div>
 
         {showAnswer && (

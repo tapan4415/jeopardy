@@ -24,7 +24,7 @@ function GameBoard({ categories, usedClues, onSelectClue }) {
               onClick={() => !isUsed && onSelectClue(catIndex, rowIndex)}
               disabled={isUsed}
             >
-              {isUsed ? '' : `$${value}`}
+              {isUsed ? '' : `${value}`}
             </button>
           );
         })
