@@ -1,13 +1,30 @@
 {
   "categories": [
     {
-      "name": "Practice Round",
+      "name": "Colors & Shapes",
       "clues": [
         { "value": 20, "clue": "What color do you get when you mix red and blue?", "answer": "What is purple?" },
-        { "value": 40, "clue": "How many legs does a spider have?", "answer": "What is 8?" },
-        { "value": 60, "clue": "What is the capital of France?", "answer": "What is Paris?" },
-        { "value": 80, "clue": "Which planet is closest to the Sun?", "answer": "What is Mercury?" },
-        { "value": 100, "clue": "What year did the Titanic sink?", "answer": "What is 1912?" }
+        { "value": 40, "clue": "How many sides does a hexagon have?", "answer": "What is 6?" },
+        { "value": 60, "clue": "What color is the sky on a clear day?", "answer": "What is blue?" },
+        { "value": 80, "clue": "What shape is a stop sign?", "answer": "What is an octagon?" }
+      ]
+    },
+    {
+      "name": "Animals",
+      "clues": [
+        { "value": 20, "clue": "How many legs does a spider have?", "answer": "What is 8?" },
+        { "value": 40, "clue": "What is the largest land animal?", "answer": "What is the elephant?" },
+        { "value": 60, "clue": "What animal is known as man's best friend?", "answer": "What is a dog?" },
+        { "value": 80, "clue": "What is a baby cat called?", "answer": "What is a kitten?" }
+      ]
+    },
+    {
+      "name": "Easy Geography",
+      "clues": [
+        { "value": 20, "clue": "What is the capital of France?", "answer": "What is Paris?" },
+        { "value": 40, "clue": "Which continent is Brazil in?", "answer": "What is South America?" },
+        { "value": 60, "clue": "What ocean lies between Europe and America?", "answer": "What is the Atlantic Ocean?" },
+        { "value": 80, "clue": "Which planet is closest to the Sun?", "answer": "What is Mercury?" }
       ]
     }
   ]

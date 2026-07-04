@@ -1,10 +1,12 @@
 import '../styles/GameBoard.css';
 
 function GameBoard({ categories, usedClues, clueOwners, onSelectClue }) {
-  const values = [20, 40, 60, 80, 100];
+  if (categories.length === 0) return null;
+
+  const numRows = categories[0].clues.length;
 
   return (
-    <div className="game-board">
+    <div className="game-board" style={{ gridTemplateColumns: `repeat(${categories.length}, 1fr)` }}>
       {/* Category headers */}
       {categories.map((category, catIndex) => (
         <div key={catIndex} className="category-header">
@@ -13,11 +15,12 @@ function GameBoard({ categories, usedClues, clueOwners, onSelectClue }) {
       ))}
 
       {/* Clue cells - row by row */}
-      {values.map((value, rowIndex) =>
-        categories.map((_, catIndex) => {
+      {Array.from({ length: numRows }, (_, rowIndex) =>
+        categories.map((cat, catIndex) => {
           const key = `${catIndex}-${rowIndex}`;
           const isUsed = usedClues.has(key);
           const owner = clueOwners[key];
+          const value = cat.clues[rowIndex]?.value;
           return (
             <button
               key={key}

@@ -53,7 +53,7 @@ function App() {
     localStorage.setItem('jeopardy-state', JSON.stringify(state));
   }, [phase, groups, scores, currentTurn, usedClues, clueOwners, isTestRound]);
 
-  const totalClues = categories.length * 5;
+  const totalClues = categories.reduce((sum, cat) => sum + cat.clues.length, 0);
 
   const handleStartGame = (groupNames) => {
     setIsTestRound(false);
