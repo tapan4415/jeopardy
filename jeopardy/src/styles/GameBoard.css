@@ -7,7 +7,7 @@
 }
 
 .category-header {
-  background: #060ce9;
+  background: linear-gradient(180deg, #1a237e 0%, #0d1442 100%);
   border: 2px solid #ffcc00;
   padding: 0.8rem 0.5rem;
   text-align: center;
@@ -19,11 +19,12 @@
   align-items: center;
   justify-content: center;
   min-height: 60px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 .clue-cell {
-  background: #060ce9;
-  border: 2px solid #1a1aff;
+  background: linear-gradient(180deg, #1a237e 0%, #101860 100%);
+  border: 2px solid #283593;
   color: #ffcc00;
   font-size: 1.4rem;
   font-weight: bold;
@@ -35,26 +36,29 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  text-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
 }
 
-.clue-cell:hover:not(.used) {
-  background: #1a1aff;
+.clue-cell:hover:not(.used):not(.owned) {
+  background: linear-gradient(180deg, #283593 0%, #1a237e 100%);
   border-color: #ffcc00;
-  transform: scale(1.02);
+  transform: scale(1.03);
+  box-shadow: 0 0 15px rgba(255, 204, 0, 0.2);
 }
 
 .clue-cell.used {
-  background: #1a1a4e;
-  border-color: #1a1a4e;
+  background: rgba(13, 20, 66, 0.6);
+  border-color: rgba(40, 53, 147, 0.3);
   cursor: default;
   color: transparent;
 }
 
 .clue-cell.owned {
-  background: #1a5e1a;
+  background: linear-gradient(180deg, #1b5e20 0%, #2e7d32 100%);
   border-color: #4caf50;
   cursor: default;
   color: #ffffff;
   font-size: 0.75rem;
   font-weight: bold;
+  text-shadow: none;
 }

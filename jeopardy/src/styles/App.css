@@ -6,9 +6,31 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #060ce9;
+  background: radial-gradient(ellipse at center top, #1a237e 0%, #0d1442 40%, #060a2e 100%);
+  background-attachment: fixed;
   color: #ffffff;
   min-height: 100vh;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 50% 20%, rgba(255, 204, 0, 0.03) 0%, transparent 50%),
+              radial-gradient(circle at 80% 60%, rgba(63, 81, 181, 0.08) 0%, transparent 40%),
+              radial-gradient(circle at 20% 80%, rgba(63, 81, 181, 0.06) 0%, transparent 40%);
+  animation: ambientGlow 15s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes ambientGlow {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(2%, 1%) rotate(1deg); }
 }
 
 #root {
