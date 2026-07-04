@@ -217,18 +217,35 @@ body::before {
   font-weight: bold;
 }
 
-.play-again-button {
-  padding: 1rem 2rem;
-  background: #ffcc00;
-  color: #060ce9;
-  border: none;
-  border-radius: 6px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.2s;
+.game-over-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.play-again-button:hover {
+.game-over-btn {
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+  background: #ffcc00;
+  color: #060ce9;
+}
+
+.game-over-btn:hover {
   background: #ffd633;
+}
+
+.game-over-btn.secondary {
+  background: transparent;
+  color: #ffcc00;
+  border: 2px solid #ffcc00;
+}
+
+.game-over-btn.secondary:hover {
+  background: rgba(255, 204, 0, 0.1);
 }

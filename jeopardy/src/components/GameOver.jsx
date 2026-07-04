@@ -21,10 +21,10 @@ function GameOver({ scores, onPlayAgain, onExit }) {
         ))}
       </div>
       <div className="game-over-buttons">
-        <button className="play-again-button" onClick={onPlayAgain}>
+        <button className="game-over-btn" onClick={onPlayAgain}>
           Play Again
         </button>
-        <button className="exit-button" onClick={onExit}>
+        <button className="game-over-btn secondary" onClick={onExit}>
           New Game
         </button>
       </div>
