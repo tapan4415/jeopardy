@@ -128,7 +128,22 @@ function App() {
     }
   };
 
+  // Same teams, reset scores, replay
   const handlePlayAgain = () => {
+    const initialScores = {};
+    groups.forEach((name) => {
+      initialScores[name] = 0;
+    });
+    setScores(initialScores);
+    setCurrentTurn(0);
+    setUsedClues(new Set());
+    setClueOwners({});
+    setSelectedClue(null);
+    setPhase('playing');
+  };
+
+  // Back to setup for new teams
+  const handleNewGame = () => {
     localStorage.removeItem('jeopardy-state');
     setPhase('setup');
     setGroups([]);
@@ -150,7 +165,7 @@ function App() {
   }
 
   if (phase === 'gameOver') {
-    return <GameOver scores={scores} onPlayAgain={handlePlayAgain} onExit={handlePlayAgain} />;
+    return <GameOver scores={scores} onPlayAgain={handlePlayAgain} onExit={handleNewGame} />;
   }
 
   return (
