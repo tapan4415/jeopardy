@@ -140,8 +140,8 @@ function App() {
   };
 
   const handleExitGame = () => {
-    if (window.confirm('Are you sure you want to exit? Progress will be lost.')) {
-      handlePlayAgain();
+    if (window.confirm('Are you sure you want to exit the game?')) {
+      setPhase('gameOver');
     }
   };
 
