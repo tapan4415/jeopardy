@@ -1,0 +1,51 @@
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 4px;
+  flex: 1;
+  padding: 0.5rem;
+}
+
+.category-header {
+  background: #060ce9;
+  border: 2px solid #ffcc00;
+  padding: 0.8rem 0.5rem;
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60px;
+}
+
+.clue-cell {
+  background: #060ce9;
+  border: 2px solid #1a1aff;
+  color: #ffcc00;
+  font-size: 1.4rem;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 1rem;
+  text-align: center;
+  transition: all 0.2s;
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clue-cell:hover:not(.used) {
+  background: #1a1aff;
+  border-color: #ffcc00;
+  transform: scale(1.02);
+}
+
+.clue-cell.used {
+  background: #1a1a4e;
+  border-color: #1a1a4e;
+  cursor: default;
+  color: transparent;
+}
