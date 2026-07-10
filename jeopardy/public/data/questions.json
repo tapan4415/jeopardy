@@ -1,0 +1,64 @@
+{
+  "categories": [
+    {
+      "name": "Science",
+      "clues": [
+        { "value": 20, "clue": "This planet is known as the Red Planet.", "answer": "What is Mars?" },
+        { "value": 40, "clue": "This element has the chemical symbol 'O'.", "answer": "What is Oxygen?" },
+        { "value": 60, "clue": "This force keeps us grounded on Earth.", "answer": "What is gravity?" },
+        { "value": 80, "clue": "This organ pumps blood throughout the body.", "answer": "What is the heart?" },
+        { "value": 100, "clue": "This scientist developed the theory of general relativity.", "answer": "Who is Albert Einstein?" }
+      ]
+    },
+    {
+      "name": "History",
+      "clues": [
+        { "value": 20, "clue": "This year marked the end of World War II.", "answer": "What is 1945?" },
+        { "value": 40, "clue": "This ancient civilization built the pyramids of Giza.", "answer": "Who are the Egyptians?" },
+        { "value": 60, "clue": "This document begins with 'We the People'.", "answer": "What is the U.S. Constitution?" },
+        { "value": 80, "clue": "This wall divided Berlin from 1961 to 1989.", "answer": "What is the Berlin Wall?" },
+        { "value": 100, "clue": "This explorer is credited with discovering America in 1492.", "answer": "Who is Christopher Columbus?" }
+      ]
+    },
+    {
+      "name": "Geography",
+      "clues": [
+        { "value": 20, "clue": "This is the largest ocean on Earth.", "answer": "What is the Pacific Ocean?" },
+        { "value": 40, "clue": "This country is known as the Land of the Rising Sun.", "answer": "What is Japan?" },
+        { "value": 60, "clue": "This river is the longest in Africa.", "answer": "What is the Nile?" },
+        { "value": 80, "clue": "This mountain is the tallest in the world.", "answer": "What is Mount Everest?" },
+        { "value": 100, "clue": "This desert is the largest hot desert in the world.", "answer": "What is the Sahara?" }
+      ]
+    },
+    {
+      "name": "Pop Culture",
+      "clues": [
+        { "value": 20, "clue": "This wizard attends Hogwarts School of Witchcraft and Wizardry.", "answer": "Who is Harry Potter?" },
+        { "value": 40, "clue": "This streaming service produced 'Stranger Things'.", "answer": "What is Netflix?" },
+        { "value": 60, "clue": "This band sang 'Bohemian Rhapsody'.", "answer": "Who is Queen?" },
+        { "value": 80, "clue": "This superhero is also known as the Dark Knight.", "answer": "Who is Batman?" },
+        { "value": 100, "clue": "This animated film features a clownfish named Marlin searching for his son.", "answer": "What is Finding Nemo?" }
+      ]
+    },
+    {
+      "name": "Sports",
+      "clues": [
+        { "value": 20, "clue": "Recognize this sport:", "answer": "What is soccer (football)?", "image": "./data/images/soccer.jpg" },
+        { "value": 40, "clue": "This tennis tournament is played on grass courts in London.", "answer": "What is Wimbledon?" },
+        { "value": 60, "clue": "This athlete holds the record for most Olympic gold medals.", "answer": "Who is Michael Phelps?" },
+        { "value": 80, "clue": "This sport uses a shuttlecock.", "answer": "What is badminton?" },
+        { "value": 100, "clue": "This country has won the most FIFA World Cup titles.", "answer": "What is Brazil?" }
+      ]
+    },
+    {
+      "name": "Technology",
+      "clues": [
+        { "value": 20, "clue": "This company created the iPhone.", "answer": "What is Apple?" },
+        { "value": 40, "clue": "This programming language shares its name with an island in Indonesia.", "answer": "What is Java?" },
+        { "value": 60, "clue": "This protocol is the foundation of data communication on the World Wide Web.", "answer": "What is HTTP?" },
+        { "value": 80, "clue": "This term describes a program that replicates itself to spread to other computers.", "answer": "What is a virus (or worm)?" },
+        { "value": 100, "clue": "This person is considered the father of computer science and proposed the Turing Test.", "answer": "Who is Alan Turing?" }
+      ]
+    }
+  ]
+}

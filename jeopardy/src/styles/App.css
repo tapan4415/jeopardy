@@ -1,0 +1,251 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: radial-gradient(ellipse at center top, #1a237e 0%, #0d1442 40%, #060a2e 100%);
+  background-attachment: fixed;
+  color: #ffffff;
+  min-height: 100vh;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 50% 20%, rgba(255, 204, 0, 0.03) 0%, transparent 50%),
+              radial-gradient(circle at 80% 60%, rgba(63, 81, 181, 0.08) 0%, transparent 40%),
+              radial-gradient(circle at 20% 80%, rgba(63, 81, 181, 0.06) 0%, transparent 40%);
+  animation: ambientGlow 15s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes ambientGlow {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(2%, 1%) rotate(1deg); }
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Setup Screen */
+.setup-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.setup-title {
+  font-size: 4rem;
+  color: #ffcc00;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin-bottom: 2rem;
+  letter-spacing: 4px;
+}
+
+.setup-form {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 2rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.setup-form h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.group-input {
+  margin-bottom: 1rem;
+}
+
+.group-input label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.group-input input {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 2px solid #ffcc00;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+.group-input input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.group-input input:focus {
+  outline: none;
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.start-button {
+  width: 100%;
+  padding: 1rem;
+  background: #ffcc00;
+  color: #060ce9;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.start-button:hover {
+  background: #ffd633;
+}
+
+.setup-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.test-round-button {
+  width: 100%;
+  padding: 0.8rem;
+  background: transparent;
+  color: #ffcc00;
+  border: 2px solid #ffcc00;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.test-round-button:hover {
+  background: rgba(255, 204, 0, 0.1);
+}
+
+/* Game Container */
+.game-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+/* Game Over */
+.game-over {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.game-over-title {
+  font-size: 3.5rem;
+  color: #ffcc00;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin-bottom: 1rem;
+}
+
+.winner-announcement {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+}
+
+.winner-name {
+  color: #ffcc00;
+  font-weight: bold;
+}
+
+.final-scores {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 2rem;
+}
+
+.final-scores h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.final-score-row {
+  display: flex;
+  align-items: center;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.final-score-row.first {
+  color: #ffcc00;
+  font-weight: bold;
+}
+
+.final-score-row .rank {
+  width: 40px;
+}
+
+.final-score-row .name {
+  flex: 1;
+}
+
+.final-score-row .score {
+  font-weight: bold;
+}
+
+.game-over-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.game-over-btn {
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+  background: #ffcc00;
+  color: #060ce9;
+}
+
+.game-over-btn:hover {
+  background: #ffd633;
+}
+
+.game-over-btn.secondary {
+  background: transparent;
+  color: #ffcc00;
+  border: 2px solid #ffcc00;
+}
+
+.game-over-btn.secondary:hover {
+  background: rgba(255, 204, 0, 0.1);
+}
