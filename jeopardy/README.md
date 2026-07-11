@@ -53,6 +53,38 @@ Edit `public/data/questions.json` with your own categories and clues:
 
 You need exactly 6 categories with 5 clues each.
 
+### Image, audio, and video clues
+
+Place media files in `public/data/media/`, then add a `media` object to a clue:
+
+```json
+{
+  "value": 20,
+  "clue": "Name this tune.",
+  "answer": "What is Happy Birthday to You?",
+  "media": {
+    "type": "audio",
+    "src": "./data/media/happy-birthday.mp3"
+  }
+}
+```
+
+Supported media types are `image`, `audio`, and `video`. Video entries may also
+include an optional `poster` image and `mimeType` value. Use media you created,
+licensed, or have permission to distribute.
+
+### Media credits
+
+- Istanbul panorama: Salih K, Wikimedia Commons (GFDL/CC BY-SA).
+- Edinburgh Castle: oskar karlin, Wikimedia Commons (CC BY-SA 2.0).
+- Vinay Pathak portrait: Bollywood Hungama, Wikimedia Commons (CC BY 3.0).
+- Ranvir Shorey portrait: Bollywood Hungama, Wikimedia Commons (CC BY 3.0).
+- Rajat Kapoor portrait: Bollywood Hungama, Wikimedia Commons (CC BY 3.0).
+- Hawa Mahal, Jaipur: Wikimedia Commons, “Hawa Mahal Jaipur.jpg” (public domain).
+- Living root bridge, Cherrapunji landscape, and Khasi Hills scenery: Wikimedia Commons; see the source-file metadata for attribution and license details.
+- Meenakshi Amman Temple aerial view: Prakashkumar, Wikimedia Commons (CC BY-SA 4.0).
+- Konark Sun Temple wheel: Wikimedia Commons; see “Konark-sun-temple-wheel.jpg” for source metadata.
+
 ## How to Play
 
 1. Enter 4 group names on the setup screen

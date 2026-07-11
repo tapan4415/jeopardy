@@ -2,7 +2,12 @@ import { useState } from 'react';
 import '../styles/App.css';
 
 function SetupScreen({ onStart, onTestRound }) {
-  const [groupNames, setGroupNames] = useState(['', '', '', '']);
+  const [groupNames, setGroupNames] = useState([
+    'Jet Setters',
+    'Globe Trotters',
+    'Frequent Flyers',
+    'Wanderlusters',
+  ]);
 
   const handleChange = (index, value) => {
     const updated = [...groupNames];
@@ -23,9 +28,16 @@ function SetupScreen({ onStart, onTestRound }) {
 
   return (
     <div className="setup-screen">
-      <h1 className="setup-title">JEOPARDY!</h1>
+      <div className="setup-ticket-label">Gate C3 · Baby Jeopardy</div>
+      <div className="adventure-logo" aria-label="Adventure Awaits">
+        <span className="adventure-logo-plane" aria-hidden="true">✈</span>
+        <span className="adventure-logo-adventure">Adventure</span>
+        <span className="adventure-logo-awaits">Awaits</span>
+      </div>
+      <p className="setup-honorees">Celebrating <strong>Vishwa &amp; Ninad</strong></p>
+      <p className="setup-subtitle">Boarding now for their greatest adventure yet</p>
       <form onSubmit={handleStartGame} className="setup-form">
-        <h2>Enter Group Names</h2>
+        <h2>Passenger Check-In</h2>
         {groupNames.map((name, index) => (
           <div key={index} className="group-input">
             <label htmlFor={`group-${index}`}>Group {index + 1}</label>

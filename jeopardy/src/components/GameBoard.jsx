@@ -9,8 +9,13 @@ function GameBoard({ categories, usedClues, clueOwners, onSelectClue }) {
     <div className="game-board" style={{ gridTemplateColumns: `repeat(${categories.length}, 1fr)` }}>
       {/* Category headers */}
       {categories.map((category, catIndex) => (
-        <div key={catIndex} className="category-header">
-          {category.name}
+        <div
+          key={catIndex}
+          className="category-header"
+          style={{ '--cell-index': catIndex }}
+        >
+          {category.image && <img src={category.image} alt="" className="category-image" />}
+          <span>{category.name}</span>
         </div>
       ))}
 
@@ -27,6 +32,7 @@ function GameBoard({ categories, usedClues, clueOwners, onSelectClue }) {
               className={`clue-cell ${isUsed ? (owner ? 'owned' : 'used') : ''}`}
               onClick={() => !isUsed && onSelectClue(catIndex, rowIndex)}
               disabled={isUsed}
+              style={{ '--cell-index': categories.length + (rowIndex * categories.length) + catIndex }}
             >
               {isUsed ? (owner || '') : `${value}`}
             </button>

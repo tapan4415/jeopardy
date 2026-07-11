@@ -1,29 +1,143 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useTimer } from '../hooks/useTimer';
 import '../styles/ClueModal.css';
 
+const WRONG_SOUNDS = [
+  './sounds/wrong/downer_noise.mp3',
+  './sounds/wrong/emotional-damage-meme.mp3',
+  './sounds/wrong/eww-brother-eww.mp3',
+  './sounds/wrong/faaah.mp3',
+  './sounds/wrong/fart_2.mp3',
+  './sounds/wrong/mk3-09455.mp3',
+  './sounds/wrong/undertakers-bell_2UwFCIe.mp3',
+  './sounds/wrong/vine-boom.mp3',
+];
+
+const RIGHT_SOUNDS = [
+  './sounds/right/7-crore-kbc.mp3',
+  './sounds/right/applause.mp3',
+  './sounds/right/honorable.mp3',
+  './sounds/right/shabbashmunna.m4a',
+  './sounds/right/snoop_PbGRau3.mp3',
+  './sounds/right/tejasvi.m4a',
+];
+
+let nextWrongSoundIndex = 0;
+let nextRightSoundIndex = 0;
+let stopActiveFeedbackSound = null;
+const MAX_FEEDBACK_AUDIO_MS = 5000;
+
+function playCappedSound(src, label) {
+  return new Promise((resolve) => {
+    const audio = new Audio(src);
+    let finished = false;
+
+    const finish = () => {
+      if (finished) return;
+      finished = true;
+      clearTimeout(limitTimer);
+      audio.pause();
+      audio.currentTime = 0;
+      if (stopActiveFeedbackSound === finish) stopActiveFeedbackSound = null;
+      resolve();
+    };
+
+    const limitTimer = setTimeout(finish, MAX_FEEDBACK_AUDIO_MS);
+    stopActiveFeedbackSound?.();
+    stopActiveFeedbackSound = finish;
+    audio.addEventListener('ended', finish, { once: true });
+    audio.addEventListener('error', finish, { once: true });
+    audio.play().catch((error) => {
+      console.warn(`Unable to play ${label} sound:`, error);
+      finish();
+    });
+  });
+}
+
 function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed }) {
+  const isTimedAudioClue = clue.media?.type === 'timed-audio';
+  const clueAudioRef = useRef(null);
+  const audioIntroFinishedRef = useRef(false);
   const [answeringTeamIndex, setAnsweringTeamIndex] = useState(currentTurn);
   const [teamsAttempted, setTeamsAttempted] = useState(0);
   const [isFirstTeam, setIsFirstTeam] = useState(true);
   const [showAnswer, setShowAnswer] = useState(false);
+  const [answerResult, setAnswerResult] = useState(null);
   const [showPassMessage, setShowPassMessage] = useState(false);
   const [nextTeamName, setNextTeamName] = useState('');
   const [waitingToStart, setWaitingToStart] = useState(false);
   const [pendingNextIndex, setPendingNextIndex] = useState(null);
   const [pendingAttempts, setPendingAttempts] = useState(0);
+  const [isFeedbackPlaying, setIsFeedbackPlaying] = useState(false);
+  const [audioIntroDone, setAudioIntroDone] = useState(!isTimedAudioClue);
+  const [needsManualAudioStart, setNeedsManualAudioStart] = useState(false);
+  const [revealMore, setRevealMore] = useState(false);
+  const [isMediaZoomed, setIsMediaZoomed] = useState(false);
 
   const duration = isFirstTeam ? 20 : 5;
   const { timeLeft, isExpired, start, stop, reset } = useTimer(duration);
 
-  useEffect(() => {
+  const playWrongSound = useCallback(() => {
+    const src = WRONG_SOUNDS[nextWrongSoundIndex];
+    nextWrongSoundIndex = (nextWrongSoundIndex + 1) % WRONG_SOUNDS.length;
+    return playCappedSound(src, 'wrong-answer');
+  }, []);
+
+  const playRightSound = useCallback(() => {
+    const src = RIGHT_SOUNDS[nextRightSoundIndex];
+    nextRightSoundIndex = (nextRightSoundIndex + 1) % RIGHT_SOUNDS.length;
+    return playCappedSound(src, 'correct-answer');
+  }, []);
+
+  const finishAudioIntro = useCallback(() => {
+    if (audioIntroFinishedRef.current) return;
+    audioIntroFinishedRef.current = true;
+    if (clueAudioRef.current) {
+      clueAudioRef.current.pause();
+      clueAudioRef.current.currentTime = 0;
+    }
+    setAudioIntroDone(true);
     start();
   }, [start]);
 
-  const handlePass = useCallback(() => {
+  const playTune = useCallback(async () => {
+    const audio = clueAudioRef.current;
+    if (!audio || audioIntroFinishedRef.current) return;
+    try {
+      audio.currentTime = 0;
+      await audio.play();
+      setNeedsManualAudioStart(false);
+    } catch {
+      setNeedsManualAudioStart(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!isTimedAudioClue) {
+      start();
+      return;
+    }
+
+    const audio = clueAudioRef.current;
+    playTune();
+    return () => {
+      audio?.pause();
+    };
+  }, [isTimedAudioClue, playTune, start]);
+
+  const handlePass = useCallback(async () => {
+    if (isFeedbackPlaying) return;
+    stop();
+    setIsFeedbackPlaying(true);
     const newAttempts = teamsAttempted + 1;
     if (newAttempts >= groups.length) {
-      onAllFailed();
+      await playWrongSound();
+      setIsFeedbackPlaying(false);
+      setAnswerResult('all-failed');
+      setShowAnswer(true);
+      setTimeout(() => {
+        onAllFailed();
+      }, 4000);
       return;
     }
 
@@ -32,12 +146,14 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed }) {
     setShowPassMessage(true);
     setPendingNextIndex(nextIndex);
     setPendingAttempts(newAttempts);
-    stop();
     setWaitingToStart(true);
-  }, [teamsAttempted, groups, answeringTeamIndex, stop]);
+    await playWrongSound();
+    setIsFeedbackPlaying(false);
+  }, [isFeedbackPlaying, teamsAttempted, groups, answeringTeamIndex, stop, playWrongSound, onAllFailed]);
 
   // Host clicks "Start Timer" to begin next team's turn
   const handleStartNextTeam = () => {
+    stopActiveFeedbackSound?.();
     setShowPassMessage(false);
     setWaitingToStart(false);
     setTeamsAttempted(pendingAttempts);
@@ -61,23 +177,200 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed }) {
     }
   }, [isExpired]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const handleCorrect = () => {
+  const handleCorrect = async () => {
+    if (isFeedbackPlaying) return;
+    stop();
+    setIsFeedbackPlaying(true);
+    setAnswerResult('correct');
     setShowAnswer(true);
-    setTimeout(() => {
-      onCorrect(answeringTeamIndex);
-    }, 2500);
+    await playRightSound();
+    setIsFeedbackPlaying(false);
+    await new Promise((resolve) => setTimeout(resolve, 3500));
+    onCorrect(answeringTeamIndex);
   };
 
   const timerPercentage = (timeLeft / duration) * 100;
+  const media = clue.media || (clue.image
+    ? { type: 'image', src: clue.image, alt: clue.clue }
+    : null);
+
+  const renderMedia = () => {
+    const interaction = clue.interaction;
+
+    if (interaction?.type === 'progressive-image') {
+      return (
+        <div className="interactive-media">
+          <div className={`progressive-image ${revealMore ? 'is-expanded' : ''}`}>
+            <img src={interaction.src} alt={interaction.alt || 'Cropped landmark clue'} />
+          </div>
+          {!revealMore && (
+            <button className="interaction-button" onClick={() => setRevealMore(true)}>Reveal More</button>
+          )}
+        </div>
+      );
+    }
+
+    if (interaction?.type === 'image-grid') {
+      return (
+        <div className="interactive-media">
+          <div className="visual-clue-grid">
+            {interaction.items.map((item) => (
+              <figure className="visual-clue-card" key={item.src}>
+                <img src={item.src} alt={showAnswer ? item.label : 'Unlabelled visual clue'} />
+                {showAnswer && <figcaption>{item.label}</figcaption>}
+              </figure>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    if (interaction?.type === 'zoom-image') {
+      return (
+        <div className="interactive-media">
+          <button
+            className={`zoom-image ${isMediaZoomed ? 'is-zoomed' : ''}`}
+            onClick={() => setIsMediaZoomed((value) => !value)}
+            aria-label={isMediaZoomed ? 'Zoom out' : 'Zoom in'}
+          >
+            <img src={interaction.src} alt={interaction.alt || 'Aerial landmark clue'} />
+          </button>
+          <span className="zoom-instruction">{isMediaZoomed ? 'Tap image to zoom out' : 'Tap image to zoom in'}</span>
+        </div>
+      );
+    }
+
+    if (interaction?.type === 'image-clue') {
+      return (
+        <div className="monument-image-stage">
+          <img src={interaction.src} alt={interaction.alt || 'Monument clue'} />
+          {showAnswer && interaction.revealBadge && <span className="reveal-location">{interaction.revealBadge}</span>}
+        </div>
+      );
+    }
+
+    if (interaction?.type === 'newborn-vision') {
+      return (
+        <div className="newborn-vision-stage">
+          <img src={interaction.src} alt={interaction.alt} />
+          {showAnswer && (
+            <div className="distance-reveal" aria-label="Newborn and caregiver faces are 8 to 12 inches apart">
+              <span>👶</span><i /><strong>8–12 INCHES</strong><i /><span>🧑</span>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    if (interaction?.type === 'food-passport') {
+      return showAnswer ? (
+        <div className="food-reveal-stage"><img src={interaction.revealSrc} alt="Sliced pistachio baklava" /></div>
+      ) : (
+        <div className="food-passport">
+          <div className="passport-stamps" aria-hidden="true">✈︎　PASSPORT　✦　ENTRY</div>
+          {interaction.clues.map((item) => <div className="passport-field" key={item.label}><span>{item.label}</span><strong>{item.value}</strong></div>)}
+        </div>
+      );
+    }
+
+    if (interaction?.type === 'translation-clue') {
+      return showAnswer ? (
+        <div className="food-reveal-stage"><img src={interaction.revealSrc} alt="Traditional dim sum spread" /></div>
+      ) : (
+        <div className="translation-stage"><span>“</span><strong>{interaction.phrase}</strong><span>”</span><small>LANGUAGE STAMP　•　CULINARY ENTRY</small></div>
+      );
+    }
+
+    if (interaction?.type === 'food-connection') {
+      return (
+        <div className={`food-connection ${showAnswer ? 'is-solved' : ''}`}>
+          <img className="connection-dishes" src={interaction.src} alt="Pad Thai, sambar, and an unbranded dark sauce" />
+          <div className="connection-labels"><span>PAD THAI</span><span>SAMBAR</span><span>WORCESTERSHIRE SAUCE</span></div>
+          <div className="connection-lines" aria-hidden="true"><i /><i /><i /></div>
+          {showAnswer ? <div className="connection-answer"><img src={interaction.revealSrc} alt="Tamarind pods and pulp" /><strong>TAMARIND</strong></div> : <div className="connection-mystery">?</div>}
+        </div>
+      );
+    }
+
+    if (interaction?.type === 'food-map') {
+      return (
+        <div className={`food-map-stage ${showAnswer ? 'is-solved' : ''}`}>
+          <img src={interaction.src} alt="An unlabeled country silhouette filled with four foods" />
+          {showAnswer && <div className="map-reveal"><strong>🇲🇾 MALAYSIA</strong><span>NASI LEMAK　•　SATAY　•　LAKSA　•　ROTI CANAI</span></div>}
+        </div>
+      );
+    }
+
+    if (interaction?.type === 'sequential-clues') {
+      return (
+        <div className="interactive-media">
+          <div className="sequential-clues">
+            {interaction.clues.map((item, index) => (
+              <div className="sequential-clue" key={item} style={{ '--clue-delay': `${index * 70}ms` }}>
+                <span>CLUE {index + 1}</span>{item}
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    if (!media?.src) return null;
+
+    if (media.type === 'audio') {
+      return (
+        <div className="clue-media-container">
+          <audio controls preload="metadata" src={media.src}>
+            Your browser does not support audio playback.
+          </audio>
+        </div>
+      );
+    }
+
+    if (media.type === 'timed-audio') {
+      return (
+        <div className={`tune-player ${audioIntroDone ? 'is-finished' : 'is-playing'}`}>
+          <audio ref={clueAudioRef} preload="auto" src={media.src} onEnded={finishAudioIntro} />
+          <div className="sound-bars" aria-hidden="true">{Array.from({ length: 9 }, (_, index) => <i key={index} />)}</div>
+          <strong>{audioIntroDone ? 'TUNE COMPLETE — TIMER STARTED' : 'LISTEN CAREFULLY…'}</strong>
+          <span>{audioIntroDone ? 'Name that tune!' : 'The timer begins when the full clip ends.'}</span>
+          {needsManualAudioStart && !audioIntroDone && (
+            <button className="play-tune-button" onClick={playTune}>▶ Play Tune</button>
+          )}
+        </div>
+      );
+    }
+
+    if (media.type === 'video') {
+      return (
+        <div className="clue-media-container">
+          <video controls preload="metadata" poster={media.poster}>
+            <source src={media.src} type={media.mimeType || 'video/mp4'} />
+            Your browser does not support video playback.
+          </video>
+        </div>
+      );
+    }
+
+    return (
+      <div className="clue-media-container">
+        <img src={media.src} alt={media.alt || 'Clue'} />
+      </div>
+    );
+  };
 
   return (
     <div className="clue-modal-overlay">
-      <div className="clue-modal">
+      <div className={`clue-modal ${clue.interaction ? 'visual-clue-modal' : ''}`}>
         {/* Pass message overlay with Start Timer button */}
         {showPassMessage && (
-          <div className="pass-overlay">
+          <div className="pass-overlay wrong-feedback">
+            <div className="wrong-particles" aria-hidden="true">
+              {Array.from({ length: 8 }, (_, index) => <span key={index}>×</span>)}
+            </div>
             <div className="pass-message">
-              ❌ Wrong answer!
+              <span className="feedback-icon wrong-icon" aria-hidden="true">✕</span>
+              <span>Wrong answer!</span>
               <div className="next-team-announce">
                 Next up: <span className="next-team-name">{nextTeamName}</span>
               </div>
@@ -90,10 +383,23 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed }) {
 
         {/* Answer revealed overlay */}
         {showAnswer && (
-          <div className="answer-overlay">
+          <div className={`answer-overlay ${clue.interaction ? 'interaction-answer' : ''} ${answerResult === 'correct' ? 'correct-feedback' : 'all-failed-feedback'}`}>
+            {answerResult === 'correct' && (
+              <div className="confetti" aria-hidden="true">
+                {Array.from({ length: 18 }, (_, index) => <span key={index} />)}
+              </div>
+            )}
             <div className="answer-revealed">
-              ✅ Correct!
+              <span className={`feedback-icon ${answerResult === 'correct' ? 'correct-icon' : ''}`} aria-hidden="true">
+                {answerResult === 'correct' ? '✓' : '⏰'}
+              </span>
+              <span>{answerResult === 'correct' ? 'Correct!' : 'No team answered'}</span>
               <div className="answer-text">{clue.answer}</div>
+              {clue.explanation && (
+                <div className="answer-explanation">
+                  <span>Why:</span> {clue.explanation}
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -104,27 +410,25 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed }) {
             style={{ width: `${timerPercentage}%` }}
           />
         </div>
-        <div className="timer-text">{timeLeft}s</div>
+        <div className="timer-text">{audioIntroDone ? `${timeLeft}s` : 'LISTEN…'}</div>
 
         <div className="answering-team">
           🎯 {groups[answeringTeamIndex]}'s turn to answer
         </div>
 
-        <div className="clue-value">{clue.value}</div>
+        <div className="clue-value">{clue.value} POINTS</div>
+        {clue.title && <div className="clue-title">{clue.title}</div>}
+        {clue.supportingLine && <div className="clue-supporting-line">{clue.supportingLine}</div>}
         <div className="clue-text">{clue.clue}</div>
 
-        {clue.image && (
-          <div className="clue-image-container">
-            <img src={clue.image} alt="Clue" className="clue-image" />
-          </div>
-        )}
+        {renderMedia()}
 
-        {!showAnswer && !showPassMessage && (
+        {!showAnswer && !showPassMessage && audioIntroDone && (
           <div className="judge-buttons">
-            <button className="btn-correct" onClick={handleCorrect}>
+            <button className="btn-correct" onClick={handleCorrect} disabled={isFeedbackPlaying}>
               ✅ Correct
             </button>
-            <button className="btn-incorrect" onClick={handlePass}>
+            <button className="btn-incorrect" onClick={handlePass} disabled={isFeedbackPlaying}>
               ❌ Wrong / Pass
             </button>
           </div>
