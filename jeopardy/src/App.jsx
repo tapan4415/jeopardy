@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import SetupScreen from './components/SetupScreen';
 import GameBoard from './components/GameBoard';
 import ClueModal from './components/ClueModal';
@@ -23,13 +23,20 @@ function App() {
   const [currentTurn, setCurrentTurn] = useState(saved?.currentTurn || 0);
   const [usedClues, setUsedClues] = useState(new Set(saved?.usedClues || []));
   const [clueOwners, setClueOwners] = useState(saved?.clueOwners || {});
-  const [selectedClue, setSelectedClue] = useState(null);
+  const [selectedClue, setSelectedClue] = useState(saved?.selectedClue || null);
+  const [categoryIntro, setCategoryIntro] = useState(null);
+  const [introducedCategories, setIntroducedCategories] = useState(
+    new Set(saved?.introducedCategories || [])
+  );
   const [categories, setCategories] = useState([]);
   const [isTestRound, setIsTestRound] = useState(saved?.isTestRound || false);
+  const categoryIntroTimer = useRef(null);
+
+  useEffect(() => () => clearTimeout(categoryIntroTimer.current), []);
 
   const loadQuestions = (testMode = false) => {
     const url = testMode ? './data/test-questions.json' : './data/questions.json';
-    fetch(url)
+    fetch(url, { cache: 'no-store' })
       .then((res) => res.json())
       .then((data) => setCategories(data.categories))
       .catch((err) => console.error('Failed to load questions:', err));
@@ -49,9 +56,21 @@ function App() {
       usedClues: [...usedClues],
       clueOwners,
       isTestRound,
+      selectedClue,
+      introducedCategories: [...introducedCategories],
     };
     localStorage.setItem('jeopardy-state', JSON.stringify(state));
-  }, [phase, groups, scores, currentTurn, usedClues, clueOwners, isTestRound]);
+  }, [
+    phase,
+    groups,
+    scores,
+    currentTurn,
+    usedClues,
+    clueOwners,
+    isTestRound,
+    selectedClue,
+    introducedCategories,
+  ]);
 
   const totalClues = categories.reduce((sum, cat) => sum + cat.clues.length, 0);
 
@@ -67,6 +86,8 @@ function App() {
     setCurrentTurn(0);
     setUsedClues(new Set());
     setClueOwners({});
+    setIntroducedCategories(new Set());
+    setCategoryIntro(null);
     setPhase('playing');
   };
 
@@ -82,6 +103,8 @@ function App() {
     setCurrentTurn(0);
     setUsedClues(new Set());
     setClueOwners({});
+    setIntroducedCategories(new Set());
+    setCategoryIntro(null);
     setPhase('playing');
   };
 
@@ -89,7 +112,20 @@ function App() {
     const key = `${categoryIndex}-${clueIndex}`;
     if (usedClues.has(key)) return;
     const clue = categories[categoryIndex].clues[clueIndex];
-    setSelectedClue({ ...clue, categoryIndex, clueIndex });
+    const pendingClue = { ...clue, categoryIndex, clueIndex };
+
+    if (!introducedCategories.has(categoryIndex)) {
+      const category = categories[categoryIndex];
+      setIntroducedCategories((previous) => new Set(previous).add(categoryIndex));
+      setCategoryIntro({ name: category.name, image: category.image });
+      categoryIntroTimer.current = setTimeout(() => {
+        setCategoryIntro(null);
+        setSelectedClue(pendingClue);
+      }, 2300);
+      return;
+    }
+
+    setSelectedClue(pendingClue);
   };
 
   // Called when a team answers correctly
@@ -130,6 +166,7 @@ function App() {
 
   // Same teams, reset scores, replay
   const handlePlayAgain = () => {
+    loadQuestions(isTestRound);
     const initialScores = {};
     groups.forEach((name) => {
       initialScores[name] = 0;
@@ -139,6 +176,8 @@ function App() {
     setUsedClues(new Set());
     setClueOwners({});
     setSelectedClue(null);
+    setCategoryIntro(null);
+    setIntroducedCategories(new Set());
     setPhase('playing');
   };
 
@@ -152,6 +191,8 @@ function App() {
     setUsedClues(new Set());
     setClueOwners({});
     setSelectedClue(null);
+    setCategoryIntro(null);
+    setIntroducedCategories(new Set());
   };
 
   const handleExitGame = () => {
@@ -165,11 +206,27 @@ function App() {
   }
 
   if (phase === 'gameOver') {
-    return <GameOver scores={scores} onPlayAgain={handlePlayAgain} onExit={handleNewGame} />;
+    return (
+      <GameOver
+        scores={scores}
+        clueOwners={clueOwners}
+        questionsPlayed={usedClues.size}
+        totalClues={totalClues}
+        onPlayAgain={handlePlayAgain}
+        onExit={handleNewGame}
+      />
+    );
   }
 
   return (
     <div className="game-container">
+      <header className="game-header">
+        <div className="game-header-brand">
+          <span className="game-header-logo">Adventure Awaits</span>
+          <span className="game-header-honorees">Vishwa &amp; Ninad's Baby Jeopardy</span>
+        </div>
+        <div className="game-header-route" aria-hidden="true">SAN JOSE ✈ PARENTHOOD</div>
+      </header>
       <ScoreBoard groups={groups} scores={scores} currentTurn={currentTurn} onExitGame={handleExitGame} />
       <GameBoard
         categories={categories}
@@ -177,6 +234,16 @@ function App() {
         clueOwners={clueOwners}
         onSelectClue={handleSelectClue}
       />
+      {categoryIntro && (
+        <div className="category-intro-overlay" role="status" aria-live="polite">
+          <div className="category-intro-ticket">
+            <div className="category-intro-kicker">Now boarding</div>
+            {categoryIntro.image && <img src={categoryIntro.image} alt="" />}
+            <div className="category-intro-name">{categoryIntro.name}</div>
+            <div className="category-intro-route">Gate C3&nbsp;&nbsp;•&nbsp;&nbsp;Adventure Awaits</div>
+          </div>
+        </div>
+      )}
       {selectedClue && (
         <ClueModal
           clue={selectedClue}

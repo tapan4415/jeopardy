@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">Three-frame Bollywood movie puzzle</title>
+  <desc id="desc">Three illustrated clues: a NASA mission patch, a glowing village light bulb, and a small hydroelectric turbine.</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff8eb"/>
+      <stop offset="1" stop-color="#e8d7bd"/>
+    </linearGradient>
+    <filter id="shadow" x="-15%" y="-15%" width="130%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#211d18" flood-opacity=".3"/>
+    </filter>
+  </defs>
+
+  <rect x="30" y="30" width="1140" height="560" rx="18" fill="url(#paper)" stroke="#566a4a" stroke-width="5" filter="url(#shadow)"/>
+  <rect x="30" y="30" width="1140" height="92" rx="15" fill="#566a4a"/>
+  <text x="75" y="74" font-family="Georgia, serif" font-size="26" font-weight="700" fill="#fff7e9" letter-spacing="3">BOLLYWOOD · THREE-FRAME PUZZLE</text>
+  <text x="75" y="103" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#f3c18c" letter-spacing="4">ONE FILM CONNECTS ALL THREE CLUES</text>
+
+  <g transform="translate(70 155)">
+    <rect width="320" height="350" rx="12" fill="#26364b" stroke="#8da4b7" stroke-width="3"/>
+    <circle cx="160" cy="150" r="94" fill="#17253a" stroke="#fff7e9" stroke-width="7"/>
+    <path d="M85 165c53-67 108-67 150 0M105 108c25 30 69 57 112 70" fill="none" stroke="#d95f3b" stroke-width="8"/>
+    <circle cx="132" cy="121" r="7" fill="#fff7e9"/>
+    <circle cx="189" cy="91" r="5" fill="#fff7e9"/>
+    <circle cx="215" cy="137" r="6" fill="#fff7e9"/>
+    <text x="160" y="281" text-anchor="middle" font-family="Arial, sans-serif" font-size="35" font-weight="900" fill="#fff7e9" letter-spacing="7">NASA</text>
+    <text x="160" y="324" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#bfcbd5" letter-spacing="3">MISSION PATCH</text>
+  </g>
+
+  <g transform="translate(440 155)">
+    <rect width="320" height="350" rx="12" fill="#3d4a32" stroke="#859477" stroke-width="3"/>
+    <path d="M110 218c0-33 22-58 50-58s50 25 50 58c0 22-12 37-25 50h-50c-13-13-25-28-25-50z" fill="#ffd46f" stroke="#fff2bd" stroke-width="7"/>
+    <path d="M138 270h44M142 287h36" stroke="#e4d4a7" stroke-width="9" stroke-linecap="round"/>
+    <path d="M56 145l38-35 37 35v35H56zM198 145l35-31 35 31v35h-70z" fill="#d7a45c" opacity=".86"/>
+    <path d="M160 113V68M96 133L66 99M224 133l30-34" stroke="#ffd46f" stroke-width="7" stroke-linecap="round"/>
+    <text x="160" y="324" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#d7e1ca" letter-spacing="3">VILLAGE LIGHT</text>
+  </g>
+
+  <g transform="translate(810 155)">
+    <rect width="320" height="350" rx="12" fill="#314a52" stroke="#89a6ad" stroke-width="3"/>
+    <path d="M46 105c43 12 68 9 100-9 45-26 82-9 128 17v66H46z" fill="#82bdc5" opacity=".85"/>
+    <path d="M40 220h240v62H40z" fill="#836b4d"/>
+    <circle cx="160" cy="221" r="63" fill="#d9d2bb" stroke="#f7efda" stroke-width="7"/>
+    <circle cx="160" cy="221" r="18" fill="#566a4a"/>
+    <g stroke="#566a4a" stroke-width="12" stroke-linecap="round">
+      <path d="M160 203v-36"/><path d="M178 221h36"/><path d="M160 239v36"/><path d="M142 221h-36"/>
+      <path d="M173 208l26-26"/><path d="M173 234l26 26"/><path d="M147 234l-26 26"/><path d="M147 208l-26-26"/>
+    </g>
+    <path d="M44 282c45-18 82 20 120 0s73 17 112 0" fill="none" stroke="#82bdc5" stroke-width="13"/>
+    <text x="160" y="324" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#d8e5e6" letter-spacing="3">WATER TURBINE</text>
+  </g>
+
+  <text x="600" y="558" text-anchor="middle" font-family="Georgia, serif" font-size="23" font-style="italic" fill="#4b4034">Name the movie that connects all three frames.</text>
+</svg>

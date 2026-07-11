@@ -2,6 +2,7 @@
   "categories": [
     {
       "name": "Colors & Shapes",
+      "image": "./images/categories/baby-trivia.webp",
       "clues": [
         { "value": 20, "clue": "What color do you get when you mix red and blue?", "answer": "What is purple?" },
         { "value": 40, "clue": "How many sides does a hexagon have?", "answer": "What is 6?" },
@@ -11,6 +12,7 @@
     },
     {
       "name": "Animals",
+      "image": "./images/categories/incredible-india.webp",
       "clues": [
         { "value": 20, "clue": "How many legs does a spider have?", "answer": "What is 8?" },
         { "value": 40, "clue": "What is the largest land animal?", "answer": "What is the elephant?" },
@@ -20,6 +22,7 @@
     },
     {
       "name": "Easy Geography",
+      "image": "./images/categories/travel.webp",
       "clues": [
         { "value": 20, "clue": "What is the capital of France?", "answer": "What is Paris?" },
         { "value": 40, "clue": "Which continent is Brazil in?", "answer": "What is South America?" },
