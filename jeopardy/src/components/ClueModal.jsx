@@ -54,7 +54,7 @@ function playCappedSound(src, label) {
   });
 }
 
-function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed, isGamePaused }) {
+function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed, onBackToBoard, isGamePaused }) {
   const isTimedAudioClue = clue.media?.type === 'timed-audio';
   const clueAudioRef = useRef(null);
   const audioIntroFinishedRef = useRef(false);
@@ -198,6 +198,16 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed, isGamePa
     stopActiveFeedbackSound?.();
     if (answerResult === 'correct') onCorrect(answeringTeamIndex);
     else onAllFailed();
+  };
+
+  const handleBackToBoard = () => {
+    stop();
+    stopActiveFeedbackSound?.();
+    if (clueAudioRef.current) {
+      clueAudioRef.current.pause();
+      clueAudioRef.current.currentTime = 0;
+    }
+    onBackToBoard();
   };
 
   const handleStartQuestionTimer = () => {
@@ -400,6 +410,9 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed, isGamePa
   return (
     <div className="clue-modal-overlay">
       <div className={`clue-modal ${clue.interaction ? 'visual-clue-modal' : ''}`}>
+        <button className="back-to-board-button" onClick={handleBackToBoard}>
+          ← Back to Board
+        </button>
         {/* Pass message overlay with Start Timer button */}
         {showPassMessage && (
           <div className="pass-overlay wrong-feedback">

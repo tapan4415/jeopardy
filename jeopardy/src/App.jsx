@@ -342,6 +342,7 @@ function App() {
           currentTurn={currentTurn}
           onCorrect={handleCorrect}
           onAllFailed={handleAllFailed}
+          onBackToBoard={() => setSelectedClue(null)}
           isGamePaused={isGamePaused}
         />
       )}

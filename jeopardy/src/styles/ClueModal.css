@@ -644,6 +644,21 @@
   overflow-y: auto;
 }
 .clue-modal::before { position: absolute; top: 1rem; left: 1.5rem; right: 1.5rem; margin: 0; }
+.back-to-board-button {
+  position: fixed;
+  top: clamp(.8rem, 2vw, 1.5rem);
+  right: clamp(.8rem, 2vw, 1.5rem);
+  z-index: 40;
+  padding: .7rem 1.15rem;
+  border: 1px solid rgba(255, 255, 255, .42);
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(48, 57, 41, .92);
+  box-shadow: 0 5px 18px rgba(0, 0, 0, .25);
+  font: 800 clamp(.9rem, 1.3vw, 1.1rem)/1 "Avenir Next", Avenir, sans-serif;
+  cursor: pointer;
+}
+.back-to-board-button:hover { background: #d8792c; transform: translateY(-1px); }
 .answering-team { margin: 1.6rem 0 .25rem; font-size: clamp(1rem, 1.8vw, 1.45rem); }
 .clue-value,
 .visual-clue-modal .clue-value { margin: 0 0 .2rem; font-size: clamp(1.2rem, 2vw, 1.75rem); }
