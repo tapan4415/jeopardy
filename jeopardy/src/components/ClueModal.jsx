@@ -54,10 +54,11 @@ function playCappedSound(src, label) {
   });
 }
 
-function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed }) {
+function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed, isGamePaused }) {
   const isTimedAudioClue = clue.media?.type === 'timed-audio';
   const clueAudioRef = useRef(null);
   const audioIntroFinishedRef = useRef(false);
+  const gamePauseWasRunningRef = useRef(false);
   const [answeringTeamIndex, setAnsweringTeamIndex] = useState(currentTurn);
   const [teamsAttempted, setTeamsAttempted] = useState(0);
   const [isFirstTeam, setIsFirstTeam] = useState(true);
@@ -71,11 +72,13 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed }) {
   const [isFeedbackPlaying, setIsFeedbackPlaying] = useState(false);
   const [audioIntroDone, setAudioIntroDone] = useState(!isTimedAudioClue);
   const [needsManualAudioStart, setNeedsManualAudioStart] = useState(false);
+  const [timerStarted, setTimerStarted] = useState(false);
+  const [isTuneReplaying, setIsTuneReplaying] = useState(false);
   const [revealMore, setRevealMore] = useState(false);
   const [isMediaZoomed, setIsMediaZoomed] = useState(false);
 
   const duration = isFirstTeam ? 20 : 5;
-  const { timeLeft, isExpired, start, stop, reset } = useTimer(duration);
+  const { timeLeft, isRunning, isExpired, start, stop, resume, reset } = useTimer(duration);
 
   const playWrongSound = useCallback(() => {
     const src = WRONG_SOUNDS[nextWrongSoundIndex];
@@ -90,6 +93,11 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed }) {
   }, []);
 
   const finishAudioIntro = useCallback(() => {
+    if (isTuneReplaying) {
+      setIsTuneReplaying(false);
+      resume();
+      return;
+    }
     if (audioIntroFinishedRef.current) return;
     audioIntroFinishedRef.current = true;
     if (clueAudioRef.current) {
@@ -97,8 +105,9 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed }) {
       clueAudioRef.current.currentTime = 0;
     }
     setAudioIntroDone(true);
+    setTimerStarted(true);
     start();
-  }, [start]);
+  }, [isTuneReplaying, resume, start]);
 
   const playTune = useCallback(async () => {
     const audio = clueAudioRef.current;
@@ -113,17 +122,25 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed }) {
   }, []);
 
   useEffect(() => {
-    if (!isTimedAudioClue) {
-      start();
-      return;
-    }
+    if (!isTimedAudioClue) return;
 
     const audio = clueAudioRef.current;
     playTune();
     return () => {
       audio?.pause();
     };
-  }, [isTimedAudioClue, playTune, start]);
+  }, [isTimedAudioClue, playTune]);
+
+  useEffect(() => {
+    if (isGamePaused) {
+      gamePauseWasRunningRef.current = isRunning;
+      stop();
+      clueAudioRef.current?.pause();
+    } else if (gamePauseWasRunningRef.current && timerStarted && !showAnswer) {
+      gamePauseWasRunningRef.current = false;
+      resume();
+    }
+  }, [isGamePaused]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handlePass = useCallback(async () => {
     if (isFeedbackPlaying) return;
@@ -135,9 +152,6 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed }) {
       setIsFeedbackPlaying(false);
       setAnswerResult('all-failed');
       setShowAnswer(true);
-      setTimeout(() => {
-        onAllFailed();
-      }, 4000);
       return;
     }
 
@@ -149,7 +163,7 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed }) {
     setWaitingToStart(true);
     await playWrongSound();
     setIsFeedbackPlaying(false);
-  }, [isFeedbackPlaying, teamsAttempted, groups, answeringTeamIndex, stop, playWrongSound, onAllFailed]);
+  }, [isFeedbackPlaying, teamsAttempted, groups, answeringTeamIndex, stop, playWrongSound]);
 
   // Host clicks "Start Timer" to begin next team's turn
   const handleStartNextTeam = () => {
@@ -170,13 +184,6 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed }) {
     }
   }, [answeringTeamIndex, waitingToStart]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Auto-pass when timer expires
-  useEffect(() => {
-    if (isExpired && !showPassMessage) {
-      handlePass();
-    }
-  }, [isExpired]); // eslint-disable-line react-hooks/exhaustive-deps
-
   const handleCorrect = async () => {
     if (isFeedbackPlaying) return;
     stop();
@@ -185,8 +192,36 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed }) {
     setShowAnswer(true);
     await playRightSound();
     setIsFeedbackPlaying(false);
-    await new Promise((resolve) => setTimeout(resolve, 3500));
-    onCorrect(answeringTeamIndex);
+  };
+
+  const handleContinue = () => {
+    stopActiveFeedbackSound?.();
+    if (answerResult === 'correct') onCorrect(answeringTeamIndex);
+    else onAllFailed();
+  };
+
+  const handleStartQuestionTimer = () => {
+    setTimerStarted(true);
+    start();
+  };
+
+  const handleToggleTimer = () => {
+    if (isRunning) stop();
+    else if (!isExpired) resume();
+  };
+
+  const handleReplayTune = async () => {
+    const audio = clueAudioRef.current;
+    if (!audio || isTuneReplaying) return;
+    stop();
+    setIsTuneReplaying(true);
+    try {
+      audio.currentTime = 0;
+      await audio.play();
+    } catch {
+      setIsTuneReplaying(false);
+      resume();
+    }
   };
 
   const timerPercentage = (timeLeft / duration) * 100;
@@ -329,13 +364,16 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed }) {
 
     if (media.type === 'timed-audio') {
       return (
-        <div className={`tune-player ${audioIntroDone ? 'is-finished' : 'is-playing'}`}>
+        <div className={`tune-player ${audioIntroDone && !isTuneReplaying ? 'is-finished' : 'is-playing'}`}>
           <audio ref={clueAudioRef} preload="auto" src={media.src} onEnded={finishAudioIntro} />
           <div className="sound-bars" aria-hidden="true">{Array.from({ length: 9 }, (_, index) => <i key={index} />)}</div>
-          <strong>{audioIntroDone ? 'TUNE COMPLETE — TIMER STARTED' : 'LISTEN CAREFULLY…'}</strong>
+          <strong>{isTuneReplaying ? 'PLAYING AGAIN — TIMER PAUSED' : audioIntroDone ? 'TUNE COMPLETE — TIMER STARTED' : 'LISTEN CAREFULLY…'}</strong>
           <span>{audioIntroDone ? 'Name that tune!' : 'The timer begins when the full clip ends.'}</span>
           {needsManualAudioStart && !audioIntroDone && (
             <button className="play-tune-button" onClick={playTune}>▶ Play Tune</button>
+          )}
+          {audioIntroDone && !isTuneReplaying && !showAnswer && (
+            <button className="play-tune-button replay-tune-button" onClick={handleReplayTune}>↻ Play Tune Again</button>
           )}
         </div>
       );
@@ -400,17 +438,10 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed }) {
                   <span>Why:</span> {clue.explanation}
                 </div>
               )}
+              <button className="answer-continue-button" onClick={handleContinue}>Continue to Board →</button>
             </div>
           </div>
         )}
-
-        <div className="timer-bar">
-          <div
-            className={`timer-fill ${timeLeft <= 3 ? 'urgent' : ''}`}
-            style={{ width: `${timerPercentage}%` }}
-          />
-        </div>
-        <div className="timer-text">{audioIntroDone ? `${timeLeft}s` : 'LISTEN…'}</div>
 
         <div className="answering-team">
           🎯 {groups[answeringTeamIndex]}'s turn to answer
@@ -423,7 +454,28 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed }) {
 
         {renderMedia()}
 
-        {!showAnswer && !showPassMessage && audioIntroDone && (
+        {!timerStarted && !isTimedAudioClue && !showAnswer && (
+          <button className="start-question-timer" onClick={handleStartQuestionTimer}>▶ Start Timer</button>
+        )}
+
+        {timerStarted && !showAnswer && (
+          <div className="timer-control-panel">
+            <div className="timer-bar">
+              <div
+                className={`timer-fill ${timeLeft <= 3 ? 'urgent' : ''}`}
+                style={{ width: `${timerPercentage}%` }}
+              />
+            </div>
+            <div className={`timer-text ${isExpired ? 'expired' : ''}`}>
+              {isExpired ? 'TIME’S UP — HOST DECIDES' : `${timeLeft}s`}
+            </div>
+            <button className="pause-timer-button" onClick={handleToggleTimer} disabled={isExpired || isTuneReplaying}>
+              {isRunning ? '⏸ Pause Timer' : '▶ Resume Timer'}
+            </button>
+          </div>
+        )}
+
+        {!showAnswer && !showPassMessage && audioIntroDone && timerStarted && !isTuneReplaying && (
           <div className="judge-buttons">
             <button className="btn-correct" onClick={handleCorrect} disabled={isFeedbackPlaying}>
               ✅ Correct
@@ -435,7 +487,7 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed }) {
         )}
 
         <div className="attempts-info">
-          Teams remaining: {groups.length - teamsAttempted - 1}
+          Teams remaining after this team: {groups.length - teamsAttempted - 1}
         </div>
       </div>
     </div>

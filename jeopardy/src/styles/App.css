@@ -860,3 +860,43 @@ body::before {
   .results-stats { grid-template-columns: repeat(2, 1fr); }
   .manifest-row { grid-template-columns: 45px minmax(110px, 1fr) 65px 70px; padding-inline: 0.65rem; }
 }
+
+/* Host password gate */
+.password-screen {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background: rgba(37, 48, 35, .9);
+}
+.password-card {
+  width: min(100%, 480px);
+  padding: 2.4rem;
+  text-align: center;
+  color: var(--ink);
+  background: var(--paper);
+  border: 3px double var(--orange);
+  box-shadow: 0 22px 70px rgba(0,0,0,.38);
+}
+.password-plane { color: var(--orange); font-size: 2.4rem; }
+.password-card > span { display: block; color: var(--olive); font-size: .72rem; font-weight: 900; letter-spacing: .18em; }
+.password-card h1 { margin: .65rem 0; color: var(--olive-dark); font: 700 clamp(2rem, 6vw, 3.2rem) Georgia,serif; }
+.password-card p { margin-bottom: 1.2rem; color: #786c5e; }
+.password-card input { width: 100%; padding: .9rem 1rem; border: 2px solid #bca888; border-radius: 4px; font-size: 1.1rem; }
+.password-card button { width: 100%; margin-top: .8rem; padding: .9rem; border: 0; color: white; background: var(--olive); font-size: 1rem; font-weight: 900; cursor: pointer; }
+.password-error { margin-top: .65rem; color: #a43e2b; font-weight: 800; }
+
+.game-paused-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: grid;
+  place-items: center;
+  color: white;
+  text-align: center;
+  background: rgba(27, 32, 25, .96);
+  backdrop-filter: blur(8px);
+}
+.game-paused-overlay span { color: #f2b878; font-size: .8rem; font-weight: 900; letter-spacing: .2em; }
+.game-paused-overlay h2 { margin: .5rem 0 1.4rem; font: 700 clamp(2.5rem, 8vw, 5rem) Georgia,serif; }
+.game-paused-overlay button { padding: .9rem 1.6rem; border: 0; border-radius: 999px; color: white; background: var(--orange); font-size: 1.1rem; font-weight: 900; cursor: pointer; }

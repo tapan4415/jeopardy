@@ -1,6 +1,6 @@
 import '../styles/ScoreBoard.css';
 
-function ScoreBoard({ groups, scores, currentTurn, onExitGame }) {
+function ScoreBoard({ groups, scores, currentTurn, onExitGame, onUndo, canUndo, onPauseGame }) {
   return (
     <div className="score-board">
       {groups.map((group, index) => (
@@ -13,9 +13,11 @@ function ScoreBoard({ groups, scores, currentTurn, onExitGame }) {
           {index === currentTurn && <div className="turn-indicator">▶ Your Turn</div>}
         </div>
       ))}
-      <button className="exit-button" onClick={onExitGame}>
-        Exit Game
-      </button>
+      <div className="host-board-controls">
+        <button className="pause-game-button" onClick={onPauseGame}>⏸ Pause</button>
+        <button className="undo-button" onClick={onUndo} disabled={!canUndo}>↶ Undo</button>
+        <button className="exit-button" onClick={onExitGame}>Exit Game</button>
+      </div>
     </div>
   );
 }

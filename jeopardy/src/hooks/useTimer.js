@@ -14,6 +14,10 @@ export function useTimer(duration = 20) {
     setIsRunning(false);
   }, []);
 
+  const resume = useCallback(() => {
+    setIsRunning(true);
+  }, []);
+
   const reset = useCallback(() => {
     setIsRunning(false);
     setTimeLeft(duration);
@@ -39,5 +43,5 @@ export function useTimer(duration = 20) {
     };
   }, [isRunning, timeLeft]);
 
-  return { timeLeft, isRunning, isExpired: timeLeft === 0, start, stop, reset };
+  return { timeLeft, isRunning, isExpired: timeLeft === 0, start, stop, resume, reset };
 }
