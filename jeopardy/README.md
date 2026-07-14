@@ -24,6 +24,13 @@ npm run dev
 
 Open http://localhost:5173 in your browser.
 
+### Host Password
+
+The default host password is `babyrao2026`. To use a different password, set
+`VITE_GAME_PASSWORD` before building or starting the app. This is a lightweight
+client-side gate intended to keep guests from opening the host controls; it is
+not a substitute for server-side authentication.
+
 ### Build for Production
 ```bash
 npm run build
@@ -80,6 +87,7 @@ licensed, or have permission to distribute.
 - Vinay Pathak portrait: Bollywood Hungama, Wikimedia Commons (CC BY 3.0).
 - Ranvir Shorey portrait: Bollywood Hungama, Wikimedia Commons (CC BY 3.0).
 - Rajat Kapoor portrait: Bollywood Hungama, Wikimedia Commons (CC BY 3.0).
+- Nahargarh Fort courtyard: Vijay Singh, Wikimedia Commons (CC BY-SA 4.0).
 - Hawa Mahal, Jaipur: Wikimedia Commons, “Hawa Mahal Jaipur.jpg” (public domain).
 - Living root bridge, Cherrapunji landscape, and Khasi Hills scenery: Wikimedia Commons; see the source-file metadata for attribution and license details.
 - Meenakshi Amman Temple aerial view: Prakashkumar, Wikimedia Commons (CC BY-SA 4.0).
@@ -89,11 +97,13 @@ licensed, or have permission to distribute.
 
 1. Enter 4 group names on the setup screen
 2. Groups take turns selecting clues from the board
-3. A 20-second timer starts when a clue is selected
-4. The host clicks "Reveal Answer" to show the correct answer
-5. The host judges ✅ Correct (points awarded) or ❌ Incorrect (no points)
-6. Turn passes to the next group
-7. Game ends when all 30 clues are used
+3. Read the full-screen question, then start the 20-second timer
+4. For tune clues, the full clip plays before the timer starts and can be replayed
+5. The host may pause the timer or the whole game at any time
+6. The host judges ✅ Correct or ❌ Wrong / Pass, including after time expires
+7. The answer stays visible until the host returns to the board
+8. Use Undo Last Result if the latest score decision was accidental
+9. Game ends when all 30 clues are used
 
 ## Deployment
 

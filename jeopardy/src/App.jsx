@@ -11,12 +11,15 @@ function loadState() {
   try {
     const saved = localStorage.getItem('jeopardy-state');
     if (saved) return JSON.parse(saved);
-  } catch (e) { /* ignore */ }
+  } catch { /* ignore */ }
   return null;
 }
 
 function App() {
   const saved = loadState();
+  const [isUnlocked, setIsUnlocked] = useState(sessionStorage.getItem('jeopardy-unlocked') === 'yes');
+  const [passwordAttempt, setPasswordAttempt] = useState('');
+  const [passwordError, setPasswordError] = useState(false);
   const [phase, setPhase] = useState(saved?.phase || 'setup');
   const [groups, setGroups] = useState(saved?.groups || []);
   const [scores, setScores] = useState(saved?.scores || {});
@@ -30,6 +33,8 @@ function App() {
   );
   const [categories, setCategories] = useState([]);
   const [isTestRound, setIsTestRound] = useState(saved?.isTestRound || false);
+  const [gameHistory, setGameHistory] = useState([]);
+  const [isGamePaused, setIsGamePaused] = useState(false);
   const categoryIntroTimer = useRef(null);
 
   useEffect(() => () => clearTimeout(categoryIntroTimer.current), []);
@@ -88,6 +93,8 @@ function App() {
     setClueOwners({});
     setIntroducedCategories(new Set());
     setCategoryIntro(null);
+    setGameHistory([]);
+    setIsGamePaused(false);
     setPhase('playing');
   };
 
@@ -105,6 +112,8 @@ function App() {
     setClueOwners({});
     setIntroducedCategories(new Set());
     setCategoryIntro(null);
+    setGameHistory([]);
+    setIsGamePaused(false);
     setPhase('playing');
   };
 
@@ -131,12 +140,18 @@ function App() {
   // Called when a team answers correctly
   const handleCorrect = (answeringTeamIndex) => {
     const teamName = groups[answeringTeamIndex];
+    const key = `${selectedClue.categoryIndex}-${selectedClue.clueIndex}`;
+    setGameHistory((history) => [...history, {
+      key,
+      teamName,
+      points: selectedClue.value,
+      previousTurn: currentTurn,
+    }]);
     setScores((prev) => ({
       ...prev,
       [teamName]: prev[teamName] + selectedClue.value,
     }));
 
-    const key = `${selectedClue.categoryIndex}-${selectedClue.clueIndex}`;
     const newUsed = new Set(usedClues);
     newUsed.add(key);
     setUsedClues(newUsed);
@@ -152,6 +167,12 @@ function App() {
   // Called when all teams fail to answer
   const handleAllFailed = () => {
     const key = `${selectedClue.categoryIndex}-${selectedClue.clueIndex}`;
+    setGameHistory((history) => [...history, {
+      key,
+      teamName: null,
+      points: 0,
+      previousTurn: currentTurn,
+    }]);
     const newUsed = new Set(usedClues);
     newUsed.add(key);
     setUsedClues(newUsed);
@@ -178,6 +199,8 @@ function App() {
     setSelectedClue(null);
     setCategoryIntro(null);
     setIntroducedCategories(new Set());
+    setGameHistory([]);
+    setIsGamePaused(false);
     setPhase('playing');
   };
 
@@ -193,6 +216,44 @@ function App() {
     setSelectedClue(null);
     setCategoryIntro(null);
     setIntroducedCategories(new Set());
+    setGameHistory([]);
+    setIsGamePaused(false);
+  };
+
+  const handleUndo = () => {
+    if (!gameHistory.length || selectedClue) return;
+    const previous = gameHistory[gameHistory.length - 1];
+    if (previous.teamName) {
+      setScores((currentScores) => ({
+        ...currentScores,
+        [previous.teamName]: currentScores[previous.teamName] - previous.points,
+      }));
+    }
+    setCurrentTurn(previous.previousTurn);
+    setUsedClues((currentUsed) => {
+      const restored = new Set(currentUsed);
+      restored.delete(previous.key);
+      return restored;
+    });
+    setClueOwners((currentOwners) => {
+      const restored = { ...currentOwners };
+      delete restored[previous.key];
+      return restored;
+    });
+    setGameHistory((history) => history.slice(0, -1));
+    setPhase('playing');
+  };
+
+  const handleUnlock = (event) => {
+    event.preventDefault();
+    const configuredPassword = import.meta.env.VITE_GAME_PASSWORD || 'babyrao2026';
+    if (passwordAttempt === configuredPassword) {
+      sessionStorage.setItem('jeopardy-unlocked', 'yes');
+      setIsUnlocked(true);
+      setPasswordError(false);
+      return;
+    }
+    setPasswordError(true);
   };
 
   const handleExitGame = () => {
@@ -200,6 +261,28 @@ function App() {
       setPhase('gameOver');
     }
   };
+
+  if (!isUnlocked) {
+    return (
+      <div className="password-screen">
+        <form className="password-card" onSubmit={handleUnlock}>
+          <div className="password-plane" aria-hidden="true">✈</div>
+          <span>PRIVATE BOARDING GATE</span>
+          <h1>Adventure Awaits</h1>
+          <p>Enter the host password to open Baby Jeopardy.</p>
+          <input
+            type="password"
+            value={passwordAttempt}
+            onChange={(event) => setPasswordAttempt(event.target.value)}
+            placeholder="Host password"
+            autoFocus
+          />
+          {passwordError && <div className="password-error">That password is not correct.</div>}
+          <button type="submit">Unlock Game</button>
+        </form>
+      </div>
+    );
+  }
 
   if (phase === 'setup') {
     return <SetupScreen onStart={handleStartGame} onTestRound={handleTestRound} />;
@@ -227,7 +310,15 @@ function App() {
         </div>
         <div className="game-header-route" aria-hidden="true">SAN JOSE ✈ PARENTHOOD</div>
       </header>
-      <ScoreBoard groups={groups} scores={scores} currentTurn={currentTurn} onExitGame={handleExitGame} />
+      <ScoreBoard
+        groups={groups}
+        scores={scores}
+        currentTurn={currentTurn}
+        onExitGame={handleExitGame}
+        onUndo={handleUndo}
+        canUndo={gameHistory.length > 0 && !selectedClue}
+        onPauseGame={() => setIsGamePaused(true)}
+      />
       <GameBoard
         categories={categories}
         usedClues={usedClues}
@@ -251,7 +342,13 @@ function App() {
           currentTurn={currentTurn}
           onCorrect={handleCorrect}
           onAllFailed={handleAllFailed}
+          isGamePaused={isGamePaused}
         />
+      )}
+      {isGamePaused && (
+        <div className="game-paused-overlay" role="dialog" aria-modal="true">
+          <div><span>GAME PAUSED</span><h2>Flight on hold</h2><button onClick={() => setIsGamePaused(false)}>▶ Resume Game</button></div>
+        </div>
       )}
     </div>
   );
