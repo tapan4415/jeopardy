@@ -3,10 +3,10 @@ import '../styles/App.css';
 
 function SetupScreen({ onStart, onTestRound }) {
   const [groupNames, setGroupNames] = useState([
-    'Jet Setters',
-    'Globe Trotters',
-    'Frequent Flyers',
-    'Wanderlusters',
+    'Team Pilot ✈️',
+    'Team Explorer 🧭',
+    'Team Voyager 🌍',
+    'Team Adventurer 🎈',
   ]);
 
   const handleChange = (index, value) => {
