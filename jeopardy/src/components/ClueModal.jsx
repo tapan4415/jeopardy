@@ -479,12 +479,16 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed, onBackTo
                 style={{ width: `${timerPercentage}%` }}
               />
             </div>
-            <div className={`timer-text ${isExpired ? 'expired' : ''}`}>
-              {isExpired ? 'TIME’S UP — HOST DECIDES' : `${timeLeft}s`}
+            <div className="timer-status-row">
+              <div className={`timer-text ${isExpired ? 'expired' : ''}`}>
+                {isExpired ? 'TIME’S UP — HOST DECIDES' : `${timeLeft}s`}
+              </div>
+              {!isExpired && (
+                <button className="pause-timer-button" onClick={handleToggleTimer} disabled={isTuneReplaying}>
+                  {isRunning ? '⏸ Pause Timer' : '▶ Resume Timer'}
+                </button>
+              )}
             </div>
-            <button className="pause-timer-button" onClick={handleToggleTimer} disabled={isExpired || isTuneReplaying}>
-              {isRunning ? '⏸ Pause Timer' : '▶ Resume Timer'}
-            </button>
           </div>
         )}
 

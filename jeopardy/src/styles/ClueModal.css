@@ -682,6 +682,12 @@
 .progressive-image { height: clamp(210px, 36vh, 390px); }
 .timer-control-panel { width: min(100%, 850px); margin: .45rem auto .65rem; }
 .timer-control-panel .timer-bar { height: 12px; margin-bottom: .35rem; }
+.timer-status-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(.8rem, 2vw, 1.5rem);
+}
 .timer-text { margin: 0 0 .35rem; font-size: clamp(1.35rem, 2.5vw, 2.2rem); font-weight: 900; }
 .timer-text.expired { color: #ae5b22; animation: urgentPulse 900ms ease-in-out infinite alternate; }
 @keyframes urgentPulse { to { transform: scale(1.04); } }
@@ -698,7 +704,13 @@
   cursor: pointer;
 }
 .start-question-timer { margin: .3rem auto .7rem; background: #d8792c; }
-.pause-timer-button { padding: .48rem 1rem; background: #786c5e; }
+.pause-timer-button {
+  min-width: 170px;
+  padding: .7rem 1.25rem;
+  background: #786c5e;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .2);
+}
+.pause-timer-button:hover { background: #586b4c; transform: translateY(-1px); }
 .answer-continue-button { margin-top: 1.1rem; }
 .judge-buttons { margin-top: .35rem; }
 .btn-correct,
