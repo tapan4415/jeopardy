@@ -13,11 +13,22 @@ const RIGHT_SOUNDS = [
 let nextWrongSoundIndex = 0;
 let nextRightSoundIndex = 0;
 let stopActiveFeedbackSound = null;
+const feedbackAudioCache = new Map();
 const MAX_FEEDBACK_AUDIO_MS = 5000;
+
+function getFeedbackAudio(src) {
+  if (!feedbackAudioCache.has(src)) {
+    const audio = new Audio(src);
+    audio.preload = 'auto';
+    audio.load();
+    feedbackAudioCache.set(src, audio);
+  }
+  return feedbackAudioCache.get(src);
+}
 
 function playCappedSound(src, label) {
   return new Promise((resolve) => {
-    const audio = new Audio(src);
+    const audio = getFeedbackAudio(src);
     let finished = false;
 
     const finish = () => {
@@ -33,6 +44,8 @@ function playCappedSound(src, label) {
     const limitTimer = setTimeout(finish, MAX_FEEDBACK_AUDIO_MS);
     stopActiveFeedbackSound?.();
     stopActiveFeedbackSound = finish;
+    audio.currentTime = 0;
+    audio.volume = 1;
     audio.addEventListener('ended', finish, { once: true });
     audio.addEventListener('error', finish, { once: true });
     audio.play().catch((error) => {
@@ -59,7 +72,7 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed, onBackTo
   const [pendingAttempts, setPendingAttempts] = useState(0);
   const [isFeedbackPlaying, setIsFeedbackPlaying] = useState(false);
   const [audioIntroDone, setAudioIntroDone] = useState(!isTimedAudioClue);
-  const [needsManualAudioStart, setNeedsManualAudioStart] = useState(false);
+  const [needsManualAudioStart, setNeedsManualAudioStart] = useState(isTimedAudioClue);
   const [timerStarted, setTimerStarted] = useState(false);
   const [isTuneReplaying, setIsTuneReplaying] = useState(false);
   const [revealMore, setRevealMore] = useState(false);
@@ -109,15 +122,9 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed, onBackTo
     }
   }, []);
 
-  useEffect(() => {
-    if (!isTimedAudioClue) return;
-
-    const audio = clueAudioRef.current;
-    playTune();
-    return () => {
-      audio?.pause();
-    };
-  }, [isTimedAudioClue, playTune]);
+  useEffect(() => () => {
+    clueAudioRef.current?.pause();
+  }, []);
 
   useEffect(() => {
     if (isGamePaused) {
@@ -472,6 +479,9 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed, onBackTo
               <button className="btn-start-timer" onClick={handleStartNextTeam}>
                 ▶ Start Timer
               </button>
+              <button className="feedback-sound-button" onClick={playWrongSound}>
+                🔊 Replay Wrong Sound
+              </button>
             </div>
           </div>
         )}
@@ -501,6 +511,12 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed, onBackTo
                 </div>
               )}
               {renderAnswerMedia()}
+              <button
+                className="feedback-sound-button"
+                onClick={answerResult === 'correct' ? playRightSound : playWrongSound}
+              >
+                🔊 Replay {answerResult === 'correct' ? 'Correct' : 'Wrong'} Sound
+              </button>
               <button className="answer-continue-button" onClick={handleContinue}>Continue to Board →</button>
             </div>
           </div>
