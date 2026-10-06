@@ -1,140 +1,38 @@
-{
-  "categories": [
-    {
-      "name": "Travel",
-      "image": "./images/categories/travel.webp",
-      "clues": [
-        { "value": 20, "clue": "Changi Airport, famous for its indoor waterfall, serves this city-state.", "answer": "What is Singapore?", "explanation": "Singapore Changi Airport is home to the Jewel's Rain Vortex, the world's tallest indoor waterfall." },
-        {
-          "value": 40,
-          "clue": "Use this itinerary to identify the city.",
-          "answer": "What is Seville?",
-          "explanation": "The Real Alcázar, the Giralda bell tower, and Plaza de España are three of Seville's best-known landmarks.",
-          "media": {
-            "type": "image",
-            "src": "./data/media/travel/itinerary-40.svg",
-            "alt": "A mystery itinerary listing the Real Alcázar, the Giralda, and Plaza de España"
-          }
-        },
-        {
-          "value": 60,
-          "clue": "Name the city shown in this picture.",
-          "answer": "What is Istanbul?",
-          "explanation": "Istanbul's skyline is distinguished by landmarks such as Hagia Sophia and the Blue Mosque beside the Bosphorus.",
-          "media": {
-            "type": "image",
-            "src": "./data/media/travel/istanbul.webp",
-            "alt": "Historic domes, minarets, and waterfront skyline"
-          }
-        },
-        {
-          "value": 80,
-          "clue": "Your boarding pass lists HND as the destination airport. Which city are you flying to?",
-          "answer": "What is Tokyo?",
-          "explanation": "HND is the IATA airport code for Tokyo's Haneda Airport, located closer to central Tokyo than Narita.",
-          "media": {
-            "type": "image",
-            "src": "./data/media/travel/boarding-pass-80.svg",
-            "alt": "A fictional boarding pass emphasizing destination airport code HND"
-          }
-        },
-        {
-          "value": 100,
-          "clue": "Name the city shown in this picture.",
-          "answer": "What is Edinburgh?",
-          "explanation": "Edinburgh Castle sits on Castle Rock, a volcanic formation overlooking Scotland's capital.",
-          "media": {
-            "type": "image",
-            "src": "./data/media/travel/edinburgh.webp",
-            "alt": "A historic stone castle standing on a volcanic rock above a city"
-          }
-        }
-      ]
-    },
-    {
-      "name": "Bollywood",
-      "image": "./images/categories/bollywood.webp",
-      "clues": [
-        { "value": 20, "clue": "Sameer, Aakash, and Sid are the three inseparable friends in which Bollywood film?", "answer": "DIL CHAHTA HAI", "explanation": "Saif Ali Khan plays Sameer, Aamir Khan plays Aakash, and Akshaye Khanna plays Sid in the 2001 film Dil Chahta Hai." },
-        {
-          "value": 40,
-          "clue": "Use these three frames to identify the Bollywood movie.",
-          "answer": "What is Swades?",
-          "explanation": "In Swades, NASA project manager Mohan returns to an Indian village and helps generate electricity using a small hydroelectric system.",
-          "media": {
-            "type": "image",
-            "src": "./data/media/bollywood/three-frame-40.svg",
-            "alt": "Three visual clues: a NASA patch, a village light bulb, and a water turbine"
-          }
-        },
-        {
-          "value": 60,
-          "clue": "Vinay Pathak, Ranvir Shorey, and Rajat Kapoor appeared together in which Bollywood film?",
-          "answer": "What is Bheja Fry?",
-          "explanation": "The three actors appear in the 2007 comedy Bheja Fry: Vinay Pathak plays Bharat Bhushan, Rajat Kapoor plays Ranjeet Thadani, and Ranvir Shorey plays Asif Merchant.",
-          "media": {
-            "type": "image",
-            "src": "./data/media/bollywood/cast-connection-60.webp",
-            "alt": "Portraits of Vinay Pathak, Ranvir Shorey, and Rajat Kapoor"
-          }
-        },
-        { "value": 80, "title": "GUESS THE FILM LOCATION", "clue": "Nahargarh Fort in Jaipur was memorably featured in which 2006 Bollywood film?", "answer": "RANG DE BASANTI", "explanation": "Rang De Basanti filmed part of its Rajasthan sequence at Nahargarh Fort overlooking Jaipur, including imagery associated with ‘Masti Ki Paathshala.’", "interaction": { "type": "image-clue", "src": "./data/media/bollywood/nahargarh-fort-80.webp", "alt": "An unlabeled courtyard inside a historic hill fort in Jaipur" } },
-        {
-          "value": 100,
-          "clue": "This familiar supporting actor is Manu Rishi Chadha. Name any Bollywood movie in which he appeared.",
-          "answer": "Accept any valid film—for example: Oye Lucky! Lucky Oye!, Shubh Mangal Zyada Saavdhan, Angrezi Mein Kehte Hain, Dasvi, or Raksha Bandhan.",
-          "explanation": "Manu Rishi Chadha is a character actor and dialogue writer known especially for Oye Lucky! Lucky Oye!, for which he also wrote the dialogue.",
-          "media": {
-            "type": "image",
-            "src": "./data/media/bollywood/supporting-actor-100.webp",
-            "alt": "Portrait of supporting actor Manu Rishi Chadha"
-          }
-        }
-      ]
-    },
-    {
-      "name": "Incredible India",
-      "image": "./images/categories/incredible-india.webp",
-      "clues": [
-        { "value": 20, "title": "VISUAL LANDMARK REVEAL", "clue": "This famous pink façade belongs to a landmark in which Indian city?", "answer": "JAIPUR", "explanation": "Jaipur is known as the Pink City of India. Hawa Mahal's pink sandstone façade has 953 small windows called jharokhas.", "interaction": { "type": "progressive-image", "src": "./data/media/india/hawa.webp", "alt": "Pink façade with repeating historic windows" } },
-        { "value": 40, "title": "THREE CLUES. ONE STATE.", "clue": "Which Indian state connects all three images?", "answer": "MEGHALAYA", "explanation": "Meghalaya is home to living root bridges, rain-soaked Cherrapunji, and the Khasi Hills. Its name means ‘abode of clouds.’", "interaction": { "type": "image-grid", "items": [{ "src": "./data/media/india/root.webp", "label": "Living Root Bridges" }, { "src": "./data/media/india/cherrapunji.webp", "label": "Cherrapunji" }, { "src": "./data/media/india/khasi.webp", "label": "Khasi Hills" }] } },
-        { "value": 60, "title": "INDIA FROM ABOVE", "clue": "Can you identify this famous Indian landmark from its aerial view?", "answer": "MEENAKSHI AMMAN TEMPLE, MADURAI", "explanation": "This historic Tamil Nadu temple is known for its towering, intricately decorated gopurams and sprawling complex at the heart of Madurai.", "interaction": { "type": "zoom-image", "src": "./data/media/india/meenakshi.webp", "alt": "Aerial view of a colorful temple complex surrounded by dense city streets" } },
-        { "value": 80, "title": "IDENTIFY THE MONUMENT", "clue": "Which famous Indian monument does this iconic wheel belong to?", "answer": "KONARK SUN TEMPLE", "explanation": "The 13th-century Sun Temple in Odisha was designed as Surya's monumental stone chariot, complete with carved wheels.", "interaction": { "type": "image-clue", "src": "./data/media/india/konark.webp", "alt": "The carved stone wheel at an Indian temple", "revealBadge": "ODISHA" } },
-        { "value": 100, "title": "CONNECT THE CLUES", "clue": "What one Indian city connects all four clues?", "answer": "GWALIOR", "explanation": "Gwalior connects its celebrated gharana, the legacy and tomb of Tansen, the Scindia dynasty, and the imposing Gwalior Fort.", "interaction": { "type": "sequential-clues", "clues": ["GHARANA", "TANSEN", "SCINDIA", "FORT"] } }
-      ]
-    },
-    {
-      "name": "Baby Trivia",
-      "image": "./images/categories/baby-trivia.webp",
-      "clues": [
-        { "value": 20, "title": "GUESS THE BABY ITEM", "clue": "What baby item is this?", "answer": "TEETHER", "explanation": "A teether gives babies a safe surface to chew as their teeth begin coming through.", "interaction": { "type": "image-clue", "src": "./data/media/baby/teether.webp", "alt": "A modern silicone baby item" } },
-        { "value": 40, "title": "BABY BY THE NUMBERS", "supportingLine": "One baby. One year. A LOT of diaper changes.", "clue": "Approximately how many diapers does an average baby use in their first year?", "answer": "2,500–3,000 DIAPERS", "explanation": "Accept any answer from 2,500 through 3,000. Newborns may need around 8–12 diaper changes daily, with the frequency generally decreasing as they grow.", "interaction": { "type": "image-clue", "src": "./data/media/baby/diaper-pile.webp", "alt": "A huge playful pile of diapers surrounding a question mark" } },
-        { "value": 60, "title": "THROUGH A NEWBORN’S EYES", "clue": "From how many inches away can a newborn see a caregiver’s face most clearly?", "answer": "8–12 INCHES", "explanation": "Accept any answer from 8 to 12 inches, including 12 inches or 1 foot. This roughly matches the distance between a feeding newborn and a caregiver’s face.", "interaction": { "type": "newborn-vision", "src": "./data/media/baby/newborn-vision.webp", "alt": "A softly blurred caregiver seen from a newborn's point of view" } },
-        { "value": 80, "title": "BABY BY THE NUMBERS", "clue": "A newborn has approximately how many bones?", "answer": "ABOUT 300 BONES", "explanation": "Most newborns have around 300 bones. As children grow, many bones fuse together, leaving most adults with 206 bones.", "interaction": { "type": "image-clue", "src": "./data/media/baby/tiny-stomach.webp", "alt": "An elegant newborn silhouette" } },
-        { "value": 100, "title": "FIRST THINGS FIRST", "clue": "A newborn’s very first poop has a special medical name. What is it called?", "answer": "MECONIUM", "explanation": "Meconium is a newborn’s thick, dark, sticky first stool. Passing it is an important early sign that the digestive system is functioning, and hospital staff monitor for it during the first day or two after birth.", "interaction": { "type": "image-clue", "src": "./data/media/baby/nursery.webp", "alt": "A tasteful hospital nursery with a newborn bassinet" } }
-      ]
-    },
-    {
-      "name": "Around the World Food",
-      "image": "./images/categories/world-food.webp",
-      "clues": [
-        { "value": 20, "title": "GUESS THE DISH", "clue": "What famous dish is this?", "answer": "SHAKSHUKA", "explanation": "Shakshuka features eggs poached in a warmly spiced tomato and pepper sauce, traditionally served directly from the pan.", "interaction": { "type": "image-clue", "src": "./data/media/food/shakshuka.webp", "alt": "Eggs poached in tomato and pepper sauce in a skillet" } },
-        { "value": 40, "title": "FOOD PASSPORT", "clue": "What famous dessert is this food passport describing?", "answer": "BAKLAVA", "explanation": "Baklava layers crisp phyllo pastry with nuts and sweet syrup or honey; pistachio versions are especially associated with Türkiye.", "interaction": { "type": "food-passport", "revealSrc": "./data/media/food/baklava.webp", "clues": [{ "label": "BIRTHPLACE", "value": "TURKEY" }, { "label": "MAIN INGREDIENT", "value": "PHYLLO PASTRY" }, { "label": "SIGNATURE FILLING", "value": "PISTACHIOS" }] } },
-        { "value": 60, "title": "LOST IN TRANSLATION", "clue": "The name of which famous Chinese culinary tradition roughly translates to ‘touch the heart’?", "answer": "DIM SUM", "explanation": "The Cantonese expression dim sum is commonly interpreted as ‘touch the heart,’ describing a tradition of many small dishes, often enjoyed with tea.", "interaction": { "type": "translation-clue", "phrase": "TOUCH THE HEART", "revealSrc": "./data/media/food/dimsum.webp" } },
-        { "value": 80, "title": "ONE INGREDIENT CONNECTS THEM ALL", "clue": "These three come from completely different culinary worlds, but one distinctive ingredient connects them all. What is it?", "answer": "TAMARIND", "explanation": "Tamarind brings its distinctive sweet-sour depth to Pad Thai sauce, South Indian sambar, and the original flavor profile of Worcestershire sauce.", "interaction": { "type": "food-connection", "src": "./data/media/food/food-connection.webp", "revealSrc": "./data/media/food/tamarind.webp" } },
-        { "value": 100, "title": "FOOD MAP WITHOUT BORDERS", "clue": "No borders. No flag. Just food. Which country does this culinary map represent?", "answer": "MALAYSIA", "explanation": "The silhouette combines Peninsular and East Malaysia with four iconic foods: nasi lemak, satay, laksa, and roti canai.", "interaction": { "type": "food-map", "src": "./data/media/food/malaysia.webp" } }
-      ]
-    },
-    {
-      "name": "Guess That Tune",
-      "image": "./images/categories/guess-that-tune.webp",
-      "clues": [
-        { "value": 20, "title": "GUESS THE BOLLYWOOD SONG", "clue": "Listen to this clip and name the Bollywood song.", "answer": "HEY BABY", "explanation": "‘Hey Baby’ is from the 2009 Bollywood film Luck, with music composed by Salim–Sulaiman.", "media": { "type": "timed-audio", "src": "./data/media/tunes/20-hey-baby.m4a" } },
-        { "value": 40, "title": "NAME THAT HIT", "clue": "Listen to this clip and name the popular song.", "answer": "I WANT IT THAT WAY", "explanation": "The Backstreet Boys released ‘I Want It That Way’ in 1999 as a single from their album Millennium.", "media": { "type": "timed-audio", "src": "./data/media/tunes/40-i-want-it-that-way.m4a" } },
-        { "value": 60, "title": "GUESS THE NURSERY RHYME", "clue": "Listen to this instrumental and name the nursery rhyme.", "answer": "ITSY BITSY SPIDER", "explanation": "Also accept ‘Incy Wincy Spider,’ the name commonly used in several countries.", "media": { "type": "timed-audio", "src": "./data/media/tunes/60-itsy-bitsy-spider.m4a" } },
-        { "value": 80, "title": "WHO SANG IT?", "clue": "Listen to this song and name its primary artist.", "answer": "EDWARD MAYA", "explanation": "Also accept Edward Maya and Vika Jigulina. Vika Jigulina provides the featured vocals on the international hit ‘Stereo Love.’", "media": { "type": "timed-audio", "src": "./data/media/tunes/80-stereo-love.m4a" } },
-        { "value": 100, "title": "GUESS THE BOLLYWOOD SONG", "clue": "Listen to this clip and name the Bollywood song.", "answer": "JEE LE", "explanation": "‘Jee Le’ is from the 2009 film Luck and was composed by Salim–Sulaiman.", "media": { "type": "timed-audio", "src": "./data/media/tunes/100-jee-le.m4a" } }
-      ]
-    }
-  ]
-}
+{"categories":[
+{"name":"Travel","image":"./images/categories/travel.webp","clues":[
+{"value":20,"clue":"Changi Airport, famous for its indoor waterfall, serves this city-state.","answer":"What is Singapore?","explanation":"Singapore Changi Airport is home to the Jewel's Rain Vortex."},
+{"value":40,"clue":"Use this itinerary to identify the city.","answer":"What is Seville?","explanation":"The Real Alcázar, Giralda, and Plaza de España are Seville landmarks.","media":{"type":"image","src":"./data/media/travel/itinerary-40.svg","alt":"Mystery itinerary"}},
+{"value":60,"clue":"Name the city shown in this picture.","answer":"What is Istanbul?","explanation":"The skyline includes Hagia Sophia and the Blue Mosque.","media":{"type":"image","src":"./data/media/travel/istanbul.webp","alt":"Historic domes and minarets"}},
+{"value":80,"clue":"Your UFL travel pass lists HND as the destination airport. Which city are you flying to?","answer":"What is Tokyo?","explanation":"HND is the code for Tokyo's Haneda Airport.","media":{"type":"image","src":"./data/media/travel/boarding-pass-80.svg","alt":"Travel pass emphasizing HND"}},
+{"value":100,"clue":"Name the city shown in this picture.","answer":"What is Edinburgh?","explanation":"Edinburgh Castle overlooks Scotland's capital.","media":{"type":"image","src":"./data/media/travel/edinburgh.webp","alt":"Castle above a city"}}]},
+{"name":"Movies & Series","image":"./data/media/movies-series/real/221b.png","clues":[
+{"value":20,"clue":"221B Baker Street is the fictional home of which detective?","answer":"SHERLOCK HOLMES","explanation":"Sherlock Holmes and Dr. Watson famously live at 221B Baker Street.","imagePath":"./data/media/movies-series/real/221b.png","media":{"type":"image","src":"./data/media/movies-series/real/221b.png","alt":"The black door at 221B Baker Street"}},
+{"value":40,"clue":"What is the name of the robot that accompanies Cooper?","answer":"TARS","explanation":"TARS accompanies Cooper on the Endurance mission in Interstellar.","imagePath":"./data/media/movies-series/real/tars.png","media":{"type":"image","src":"./data/media/movies-series/real/tars.png","alt":"Cooper's crew walking beside the rectangular robot"}},
+{"value":60,"title":"THREE-ACTOR CONNECTION","clue":"Hugh Jackman, Scarlett Johansson, and Christian Bale all appeared in which film?","answer":"THE PRESTIGE","explanation":"The three actors star in Christopher Nolan's 2006 thriller about rival magicians.","imagePath":"./data/media/movies-series/real/scarlett-johansson.png","interaction":{"type":"option-image-grid","items":[{"label":"A","src":"./data/media/movies-series/real/hugh-jackman.png","caption":"Hugh Jackman"},{"label":"B","src":"./data/media/movies-series/real/scarlett-johansson.png","caption":"Scarlett Johansson"},{"label":"C","src":"./data/media/movies-series/real/christian-bale.png","caption":"Christian Bale"}]}},
+{"value":80,"clue":"What is Chandler Bing's middle name?","answer":"MURIEL","explanation":"Chandler reveals his middle name is Muriel in Friends.","imagePath":"./data/media/movies-series/movies_series_80.png","media":{"type":"image","src":"./data/media/movies-series/movies_series_80.png","alt":"Chandler Bing in a coffee shop"}},
+{"value":100,"clue":"What spell does Professor McGonagall use to summon the Guardians of Hogwarts?","answer":"PIERTOTUM LOCOMOTOR","explanation":"The spell animates Hogwarts' statues and armor during the battle.","imagePath":"./data/media/bollywood/mcgonagall-guardians-100.png","media":{"type":"image","src":"./data/media/bollywood/mcgonagall-guardians-100.png","alt":"McGonagall and stone guardians"}}]},
+{"name":"Famous Firsts","image":"./data/media/famous-firsts/category-famous-firsts.png","clues":[
+{"value":20,"clue":"Which animal became the first to orbit Earth?","answer":"LAIKA, A DOG","explanation":"Laika orbited Earth aboard Sputnik 2 in 1957.","imagePath":"./data/media/famous-firsts/famous_firsts_20.png","answerMedia":{"type":"image","src":"./data/media/famous-firsts/famous_firsts_20.png","alt":"Laika in an early space capsule"}},
+{"value":40,"clue":"What was the first thing ever bought using Bitcoin?","answer":"PIZZA","explanation":"Two pizzas were purchased for 10,000 bitcoin in 2010.","imagePath":"./data/media/famous-firsts/famous_firsts_40.svg","media":{"type":"image","src":"./data/media/famous-firsts/famous_firsts_40.svg","alt":"A pizza beside a generic digital coin"}},
+{"value":60,"clue":"What was the first sport played on the Moon?","answer":"GOLF","explanation":"Apollo 14 astronaut Alan Shepard hit two golf balls on the Moon in 1971.","imagePath":"./data/media/famous-firsts/famous_firsts_60.png","media":{"type":"image","src":"./data/media/famous-firsts/famous_firsts_60.png","alt":"Astronaut swinging a club on the Moon"}},
+{"value":80,"clue":"Which happened first?","answer":"C. GOOGLE MAPS LAUNCHED","explanation":"Google Maps launched on February 8, 2005.","imagePath":"./data/media/famous-firsts/events/c-google-maps.jpeg","interaction":{"type":"option-image-grid","items":[{"label":"A","src":"./data/media/famous-firsts/events/a-first-iphone.jpeg","caption":"The first iPhone was released"},{"label":"B","src":"./data/media/famous-firsts/events/b-youtube.jpeg","caption":"YouTube was founded"},{"label":"C","src":"./data/media/famous-firsts/events/c-google-maps.jpeg","caption":"Google Maps launched"},{"label":"D","src":"./data/media/famous-firsts/events/d-pluto.svg","caption":"Pluto was reclassified"},{"label":"E","src":"./data/media/famous-firsts/events/e-twitter.png","caption":"Twitter launched"},{"label":"F","src":"./data/media/famous-firsts/events/f-the-office.jpeg","caption":"The Office (US) premiered"}]}},
+{"value":100,"clue":"Which of these six companies was founded first?","answer":"A. NINTENDO","explanation":"Nintendo was founded in Kyoto in 1889.","imagePath":"./data/media/famous-firsts/logos/A_Nintendo.png","interaction":{"type":"option-image-grid","items":[{"label":"A","src":"./data/media/famous-firsts/logos/A_Nintendo.png","caption":"Nintendo"},{"label":"B","src":"./data/media/famous-firsts/logos/B_Coca-Cola_Company.png","caption":"The Coca-Cola Company"},{"label":"C","src":"./data/media/famous-firsts/logos/C_Disney.png","caption":"Disney"},{"label":"D","src":"./data/media/famous-firsts/logos/D_IBM.png","caption":"IBM"},{"label":"E","src":"./data/media/famous-firsts/logos/E_Ford.png","caption":"Ford"},{"label":"F","src":"./data/media/famous-firsts/logos/F_Harley-Davidson.png","caption":"Harley-Davidson"}]}}]},
+{"name":"General Trivia","image":"./data/media/general-trivia/category-general-trivia.png","clues":[
+{"value":20,"clue":"Which element is represented by the symbol W?","answer":"TUNGSTEN","funFact":"The symbol W comes from the older name Wolfram.","imagePath":"./data/media/general-trivia/general_trivia_20.svg","media":{"type":"image","src":"./data/media/general-trivia/general_trivia_20.svg","alt":"Periodic table tile W, atomic number 74"}},
+{"value":40,"clue":"Which country has the only national flag in the world that is not rectangular?","answer":"NEPAL","funFact":"Nepal's flag is made of two stacked pennants, not a rectangle.","imagePath":"./data/media/general-trivia/nepal-flag.webp","answerMedia":{"type":"image","src":"./data/media/general-trivia/nepal-flag.webp","alt":"The flag of Nepal"}},
+{"value":60,"clue":"Which letter does not appear in the name of any U.S. state?","answer":"Q","funFact":"Letters like X and Z appear in state names, but Q does not.","imagePath":"./data/media/general-trivia/us-states-map.jpeg","media":{"type":"image","src":"./data/media/general-trivia/us-states-map.jpeg","alt":"Blank outline map of the 50 U.S. states"}},
+{"value":80,"clue":"Which dynasty built most of the surviving wall seen today?","answer":"MING DYNASTY","funFact":"Much of the iconic wall people recognize today comes from the Ming era.","imagePath":"./data/media/general-trivia/general_trivia_80.png","media":{"type":"image","src":"./data/media/general-trivia/general_trivia_80.png","alt":"Great Wall across mountain ridges"}},
+{"value":100,"clue":"Which country's national animal is the unicorn?","answer":"SCOTLAND","funFact":"The unicorn has been part of Scottish heraldry for centuries and symbolizes strength and purity.","imagePath":"./data/media/general-trivia/general_trivia_100.png","media":{"type":"image","src":"./data/media/general-trivia/general_trivia_100.png","alt":"Heraldic white unicorn"}}]},
+{"name":"Around the World Food","image":"./images/categories/world-food.webp","clues":[
+{"value":20,"clue":"Guess the dish shown.","answer":"SHAKSHUKA","explanation":"Shakshuka features eggs poached in a spiced tomato and pepper sauce.","imagePath":"./data/media/food/shakshuka.webp","media":{"type":"image","src":"./data/media/food/shakshuka.webp","alt":"Eggs poached in tomato sauce"}},
+{"value":40,"clue":"What famous dessert is this food passport describing?","answer":"MACARONS","explanation":"Macarons are delicate almond-meringue sandwich cookies.","imagePath":"./data/media/food/food-passport-40.svg","media":{"type":"image","src":"./data/media/food/food-passport-40.svg","alt":"A food passport listing birthplace, ingredients, and signature features"},"answerMedia":{"type":"image","src":"./data/media/food/food_40_macarons.png","alt":"Assorted macarons"}},
+{"value":60,"clue":"The name of which famous Chinese culinary tradition roughly translates to 'touch the heart'?","answer":"DIM SUM","explanation":"The Cantonese expression dim sum is commonly interpreted as 'touch the heart.'","imagePath":"./data/media/food/dimsum.webp","answerMedia":{"type":"image","src":"./data/media/food/dimsum.webp","alt":"A traditional dim sum spread"}},
+{"value":80,"clue":"Pad Thai, Worcestershire sauce, and sambar come from different culinary worlds, but one distinctive ingredient connects all three. What is it?","answer":"TAMARIND","explanation":"Tamarind brings its sweet-sour depth to Pad Thai sauce, South Indian sambar, and the original flavor profile of Worcestershire sauce.","imagePath":"./data/media/food/food-connection.webp","interaction":{"type":"food-connection","src":"./data/media/food/food-connection.webp","revealSrc":"./data/media/food/tamarind.webp"}},
+{"value":100,"clue":"No borders. No flag. Just food. Which country does this culinary map represent?","answer":"VIETNAM","explanation":"The S-shaped map contains pho, bánh mì, spring rolls, iced coffee, and bánh xèo.","imagePath":"./data/media/food/food_100_vietnam_map.png","media":{"type":"image","src":"./data/media/food/food_100_vietnam_map.png","alt":"Unlabeled S-shaped food map"}}]},
+{"name":"Guess That Tune","image":"./images/categories/guess-that-tune.webp","clues":[
+{"value":20,"title":"NAME THAT HIT","clue":"Listen to this clip and name the popular song.","answer":"I WANT IT THAT WAY","explanation":"The Backstreet Boys released it in 1999.","media":{"type":"timed-audio","src":"./data/media/tunes/40-i-want-it-that-way.m4a"}},
+{"value":40,"title":"DANCE FLOOR CLASSIC","clue":"Listen to this clip and name the popular song.","answer":"MACARENA","explanation":"Los del Río made Macarena a global dance hit.","media":{"type":"timed-audio","src":"./data/media/tunes/40-macarena.m4a"}},
+{"value":60,"title":"EURO HIT","clue":"Listen to this clip and name the song.","answer":"ALORS ON DANSE","explanation":"This is Stromae's breakout 2009 hit.","media":{"type":"timed-audio","src":"./data/media/tunes/60-alors-on-danse.m4a"}},
+{"value":80,"title":"WHO SANG IT?","clue":"Listen to this song and name its primary artist.","answer":"EDWARD MAYA","explanation":"Also accept Edward Maya and Vika Jigulina.","media":{"type":"timed-audio","src":"./data/media/tunes/80-stereo-love.m4a"}},
+{"value":100,"title":"PUB ANTHEM","clue":"Listen to this clip and name the song.","answer":"TUBTHUMPING","explanation":"Tubthumping is the 1997 Chumbawamba hit.","media":{"type":"timed-audio","src":"./data/media/tunes/100-tubthumping.m4a"}}]}
+]}

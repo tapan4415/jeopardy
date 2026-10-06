@@ -12,7 +12,63 @@
   animation: fadeIn 0.3s ease;
 }
 
-.clue-modal-overlay { background: rgba(46, 42, 34, 0.78); backdrop-filter: blur(3px); }
+.option-image-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+  width: min(100%, 980px);
+  margin: 1rem auto;
+}
+
+.option-image-card {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  color: #041e42;
+  background: #fff;
+  border: 3px solid #ffc220;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(4, 30, 66, 0.25);
+}
+
+.option-image-card img {
+  display: block;
+  width: 100%;
+  height: 125px;
+  object-fit: contain;
+  background: #f6f8fb;
+}
+
+.option-image-card figcaption {
+  min-height: 48px;
+  padding: 0.55rem 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 800;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.option-label {
+  position: absolute;
+  z-index: 1;
+  top: 0.45rem;
+  left: 0.45rem;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  color: #041e42;
+  background: #ffc220;
+  border-radius: 50%;
+  font-weight: 950;
+}
+
+@media (max-width: 720px) {
+  .option-image-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .option-image-card img { height: 100px; }
+}
+
+.clue-modal-overlay { background: rgba(7, 18, 31, 0.84); backdrop-filter: blur(3px); }
 
 @keyframes fadeIn {
   from { opacity: 0; }
@@ -32,11 +88,11 @@
 }
 
 .clue-modal {
-  color: #3d3328;
+  color: #0c2136;
   background:
-    radial-gradient(circle at 90% 8%, rgba(216, 121, 44, 0.1), transparent 25%),
-    linear-gradient(145deg, #fffaf1, #f1e3cf);
-  border: 3px solid #586b4c;
+    radial-gradient(circle at 90% 8%, rgba(255, 194, 32, 0.12), transparent 25%),
+    linear-gradient(145deg, #f8fbff, #d9e0e7);
+  border: 3px solid #ffc220;
   border-radius: 5px;
   box-shadow: 0 22px 70px rgba(37, 31, 24, 0.45);
   animation: ticketReveal 420ms cubic-bezier(.18,.89,.32,1.2) both;
@@ -48,12 +104,12 @@
 }
 
 .clue-modal::before {
-  content: "BOARDING PASS  •  BABY JEOPARDY";
+  content: "WALMART BUSINESS  •  CPE TEAM";
   display: block;
   margin-bottom: 1.2rem;
   padding-bottom: 0.8rem;
-  color: #586b4c;
-  border-bottom: 1px dashed rgba(88, 107, 76, 0.45);
+  color: #0c263f;
+  border-bottom: 1px dashed rgba(12, 38, 63, 0.34);
   font-size: 0.7rem;
   font-weight: 900;
   letter-spacing: 0.16rem;
@@ -67,7 +123,7 @@
   margin-bottom: 0.5rem;
 }
 
-.timer-bar { background: rgba(88, 107, 76, 0.15); }
+.timer-bar { background: rgba(12, 38, 63, 0.15); }
 
 .timer-fill {
   height: 100%;
@@ -76,8 +132,8 @@
   border-radius: 4px;
 }
 
-.timer-fill { background: #586b4c; }
-.timer-fill.urgent { background: #d8792c; }
+.timer-fill { background: #0c263f; }
+.timer-fill.urgent { background: #ffc220; }
 
 .timer-fill.urgent {
   background: #f44336;
@@ -141,6 +197,52 @@
 .reveal-location { position: absolute; right: 1rem; top: .8rem; z-index: 1; padding: .35rem .65rem; border-radius: 999px; color: white; background: rgba(64,81,58,.9); font-weight: 900; letter-spacing: .12em; animation: answerReveal 350ms ease both; }
 @keyframes silhouetteFade { from { opacity: .2; transform: scale(1.05); } to { opacity: 1; transform: scale(1); } }
 
+.covered-image-stage {
+  position: relative;
+  width: min(100%, 760px);
+  height: 340px;
+  margin: .6rem auto 1rem;
+  overflow: hidden;
+  border: 2px solid #ffc220;
+  border-radius: 10px;
+  background: #041e42;
+}
+
+.covered-image-stage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 500ms ease;
+}
+
+.covered-image-stage:not(.is-revealed) img {
+  transform: scale(1.03);
+}
+
+.image-cover {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 48%;
+  background:
+    linear-gradient(145deg, rgba(4, 30, 66, .98), rgba(0, 113, 206, .96)),
+    repeating-linear-gradient(135deg, rgba(255, 194, 32, .15) 0 10px, transparent 10px 20px);
+  border-top: 3px solid rgba(255, 194, 32, .82);
+}
+
+.image-cover::after {
+  content: "FACE REVEAL LOCKED";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #ffc220;
+  font-size: .95rem;
+  font-weight: 950;
+  letter-spacing: .18em;
+}
+
 .newborn-vision-stage { position: relative; width: min(100%, 800px); height: 330px; margin: .6rem auto 1rem; overflow: hidden; border: 2px solid #bca888; border-radius: 10px; background: #d7cab8; }
 .newborn-vision-stage > img { width: 100%; height: 100%; object-fit: cover; }
 .distance-reveal { position: absolute; top: .8rem; left: 50%; display: flex; align-items: center; gap: .45rem; width: min(90%, 560px); padding: .55rem .8rem; border-radius: 999px; color: #fff; background: rgba(64,81,58,.92); transform: translateX(-50%); animation: answerReveal 350ms ease both; }
@@ -202,7 +304,7 @@
   .visual-clue-modal { padding: 1rem; width: 94%; }
   .visual-clue-grid { grid-template-columns: 1fr; }
   .visual-clue-card img { height: 145px; }
-  .progressive-image, .zoom-image, .monument-image-stage, .newborn-vision-stage { height: 250px; }
+  .progressive-image, .zoom-image, .monument-image-stage, .covered-image-stage, .newborn-vision-stage { height: 250px; }
   .sequential-clues { grid-template-columns: 1fr 1fr; }
   .food-passport { grid-template-columns: 1fr; }
   .passport-field { min-height: 62px; }
@@ -601,6 +703,23 @@
   text-transform: uppercase;
 }
 
+.answer-media {
+  width: min(92vw, 760px);
+  margin: 1rem auto 0;
+}
+
+.answer-media video,
+.answer-media img {
+  display: block;
+  width: 100%;
+  max-height: 38vh;
+  object-fit: contain;
+  border: 3px solid rgba(255, 194, 32, .75);
+  border-radius: 8px;
+  background: #041e42;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .3);
+}
+
 /* Image clues */
 .clue-image-container,
 .clue-media-container {
@@ -675,6 +794,7 @@
 }
 .interactive-media { margin: .35rem 0 .7rem; }
 .monument-image-stage,
+.covered-image-stage,
 .newborn-vision-stage,
 .food-reveal-stage,
 .food-map-stage,
@@ -724,7 +844,7 @@
 
 @media (max-height: 760px) {
   .clue-text, .visual-clue-modal .clue-text { font-size: clamp(1.6rem, 4vw, 3.2rem); }
-  .monument-image-stage, .newborn-vision-stage, .food-reveal-stage, .food-map-stage, .zoom-image, .progressive-image { height: 220px; }
+  .monument-image-stage, .covered-image-stage, .newborn-vision-stage, .food-reveal-stage, .food-map-stage, .zoom-image, .progressive-image { height: 220px; }
   .clue-modal::before { display: none; }
   .answering-team { margin-top: .2rem; }
 }

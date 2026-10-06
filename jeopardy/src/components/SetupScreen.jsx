@@ -28,16 +28,16 @@ function SetupScreen({ onStart, onTestRound }) {
 
   return (
     <div className="setup-screen">
-      <div className="setup-ticket-label">Gate C3 · Baby Jeopardy</div>
-      <div className="adventure-logo" aria-label="Adventure Awaits">
-        <span className="adventure-logo-plane" aria-hidden="true">✈</span>
-        <span className="adventure-logo-adventure">Adventure</span>
-        <span className="adventure-logo-awaits">Awaits</span>
+      <div className="setup-ticket-label">Walmart Business · CPE Team Jeopardy</div>
+      <div className="adventure-logo ufl-logo-lockup" aria-label="Walmart Business CPE Team">
+        <img className="ufl-main-logo walmart-business-logo" src="./images/theme/walmart_business_logo_transparent.png" alt="Walmart Business" />
+        <span className="adventure-logo-adventure">Walmart Business</span>
+        <span className="adventure-logo-awaits">CPE Team</span>
       </div>
-      <p className="setup-honorees">Celebrating <strong>Vishwa &amp; Ninad</strong></p>
-      <p className="setup-subtitle">Boarding now for their greatest adventure yet</p>
+      <p className="setup-honorees"><strong>CPE Team</strong> game time</p>
+      <p className="setup-subtitle">Teams ready for big ideas, quick answers, and business trivia</p>
       <form onSubmit={handleStartGame} className="setup-form">
-        <h2>Passenger Check-In</h2>
+        <h2>Team Check-In</h2>
         {groupNames.map((name, index) => (
           <div key={index} className="group-input">
             <label htmlFor={`group-${index}`}>Group {index + 1}</label>

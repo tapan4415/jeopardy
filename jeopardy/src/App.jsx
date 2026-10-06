@@ -35,9 +35,23 @@ function App() {
   const [isTestRound, setIsTestRound] = useState(saved?.isTestRound || false);
   const [gameHistory, setGameHistory] = useState([]);
   const [isGamePaused, setIsGamePaused] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const categoryIntroTimer = useRef(null);
 
   useEffect(() => () => clearTimeout(categoryIntroTimer.current), []);
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(Boolean(document.fullscreenElement));
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    handleFullscreenChange();
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    };
+  }, []);
 
   const loadQuestions = (testMode = false) => {
     const url = testMode ? './data/test-questions.json' : './data/questions.json';
@@ -246,7 +260,7 @@ function App() {
 
   const handleUnlock = (event) => {
     event.preventDefault();
-    const configuredPassword = import.meta.env.VITE_GAME_PASSWORD || 'babyrao2026';
+    const configuredPassword = import.meta.env.VITE_GAME_PASSWORD || 'cpe';
     if (passwordAttempt === configuredPassword) {
       sessionStorage.setItem('jeopardy-unlocked', 'yes');
       setIsUnlocked(true);
@@ -262,14 +276,26 @@ function App() {
     }
   };
 
+  const handleToggleFullscreen = async () => {
+    try {
+      if (document.fullscreenElement) {
+        await document.exitFullscreen();
+      } else {
+        await document.documentElement.requestFullscreen();
+      }
+    } catch (error) {
+      console.error('Unable to toggle fullscreen:', error);
+    }
+  };
+
   if (!isUnlocked) {
     return (
       <div className="password-screen">
         <form className="password-card" onSubmit={handleUnlock}>
-          <div className="password-plane" aria-hidden="true">✈</div>
-          <span>PRIVATE BOARDING GATE</span>
-          <h1>Adventure Awaits</h1>
-          <p>Enter the host password to open Baby Jeopardy.</p>
+          <img className="password-logo walmart-business-logo" src="./images/theme/walmart_business_logo_transparent.png" alt="Walmart Business" />
+          <span>PRIVATE TEAM CHECK-IN</span>
+          <h1>Walmart Business CPE Team</h1>
+          <p>Enter the host password to open the game.</p>
           <input
             type="password"
             value={passwordAttempt}
@@ -305,10 +331,11 @@ function App() {
     <div className="game-container">
       <header className="game-header">
         <div className="game-header-brand">
-          <span className="game-header-logo">Adventure Awaits</span>
-          <span className="game-header-honorees">Vishwa &amp; Ninad's Baby Jeopardy</span>
+          <img className="game-header-mark walmart-business-logo" src="./images/theme/walmart_business_logo_transparent.png" alt="" />
+          <span className="game-header-logo">Walmart Business</span>
+          <span className="game-header-honorees">CPE Team Jeopardy</span>
         </div>
-        <div className="game-header-route" aria-hidden="true">SAN JOSE ✈ PARENTHOOD</div>
+        <div className="game-header-route" aria-hidden="true">WALMART BUSINESS • CPE TEAM</div>
       </header>
       <ScoreBoard
         groups={groups}
@@ -318,6 +345,8 @@ function App() {
         onUndo={handleUndo}
         canUndo={gameHistory.length > 0 && !selectedClue}
         onPauseGame={() => setIsGamePaused(true)}
+        onToggleFullscreen={handleToggleFullscreen}
+        isFullscreen={isFullscreen}
       />
       <GameBoard
         categories={categories}
@@ -328,10 +357,10 @@ function App() {
       {categoryIntro && (
         <div className="category-intro-overlay" role="status" aria-live="polite">
           <div className="category-intro-ticket">
-            <div className="category-intro-kicker">Now boarding</div>
+            <div className="category-intro-kicker">Now on the line</div>
             {categoryIntro.image && <img src={categoryIntro.image} alt="" />}
             <div className="category-intro-name">{categoryIntro.name}</div>
-            <div className="category-intro-route">Gate C3&nbsp;&nbsp;•&nbsp;&nbsp;Adventure Awaits</div>
+            <div className="category-intro-route">Walmart Business&nbsp;&nbsp;•&nbsp;&nbsp;CPE Team</div>
           </div>
         </div>
       )}
@@ -348,7 +377,7 @@ function App() {
       )}
       {isGamePaused && (
         <div className="game-paused-overlay" role="dialog" aria-modal="true">
-          <div><span>GAME PAUSED</span><h2>Flight on hold</h2><button onClick={() => setIsGamePaused(false)}>▶ Resume Game</button></div>
+          <div><span>GAME PAUSED</span><h2>Timeout called</h2><button onClick={() => setIsGamePaused(false)}>▶ Resume Game</button></div>
         </div>
       )}
     </div>

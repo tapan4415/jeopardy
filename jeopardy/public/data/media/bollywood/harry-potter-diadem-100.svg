@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">Tarnished diadem horcrux clue</title>
+  <desc id="desc">A tarnished silver diadem with a blue stone, without any Ravenclaw symbol or label.</desc>
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="35%" r="72%">
+      <stop offset="0" stop-color="#253c56"/>
+      <stop offset="0.48" stop-color="#0b1b2c"/>
+      <stop offset="1" stop-color="#050910"/>
+    </radialGradient>
+    <linearGradient id="silver" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7f9fb"/>
+      <stop offset="0.25" stop-color="#98a2ad"/>
+      <stop offset="0.5" stop-color="#e8edf2"/>
+      <stop offset="0.75" stop-color="#687481"/>
+      <stop offset="1" stop-color="#f4f7fa"/>
+    </linearGradient>
+    <radialGradient id="stone" cx="44%" cy="35%" r="62%">
+      <stop offset="0" stop-color="#e4fbff"/>
+      <stop offset="0.28" stop-color="#45b8ff"/>
+      <stop offset="0.72" stop-color="#0d4b94"/>
+      <stop offset="1" stop-color="#061e47"/>
+    </radialGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="9" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="shadow" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="22" stdDeviation="18" flood-color="#000000" flood-opacity=".58"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="700" fill="url(#bg)"/>
+  <g opacity=".18" fill="none" stroke="#f58220" stroke-width="2">
+    <path d="M170 160c130-95 268 10 430-66 168-79 315-17 430 65"/>
+    <path d="M140 565c178-104 317 48 466-33 160-87 310-14 455 38"/>
+  </g>
+  <text x="600" y="86" text-anchor="middle" font-family="Avenir Next, Arial, sans-serif" font-size="28" font-weight="900" letter-spacing="8" fill="#ffb66b">LOST HORCRUX</text>
+  <text x="600" y="132" text-anchor="middle" font-family="Georgia, serif" font-size="30" fill="#f8fbff">This lost object becomes a Horcrux.</text>
+
+  <g transform="translate(165 200)" filter="url(#shadow)">
+    <path d="M85 270 C265 110, 470 80, 600 242 C730 80, 935 110, 1115 270" fill="none" stroke="url(#silver)" stroke-width="31" stroke-linecap="round"/>
+    <path d="M128 284 C308 178, 468 160, 600 280 C732 160, 892 178, 1072 284" fill="none" stroke="#263241" stroke-width="7" opacity=".5"/>
+    <path d="M238 237 C290 125, 354 121, 405 238" fill="none" stroke="url(#silver)" stroke-width="20" stroke-linecap="round"/>
+    <path d="M795 238 C846 121, 910 125, 962 237" fill="none" stroke="url(#silver)" stroke-width="20" stroke-linecap="round"/>
+    <path d="M466 230 C503 72, 697 72, 734 230" fill="none" stroke="url(#silver)" stroke-width="24" stroke-linecap="round"/>
+    <path d="M555 210 C570 160, 630 160, 645 210" fill="none" stroke="#f7f9fb" stroke-width="9" opacity=".78"/>
+    <ellipse cx="600" cy="248" rx="72" ry="92" fill="url(#stone)" stroke="#e8edf2" stroke-width="13" filter="url(#glow)"/>
+    <ellipse cx="578" cy="217" rx="18" ry="26" fill="#f4fdff" opacity=".7"/>
+    <g fill="#8b6f45" opacity=".42">
+      <circle cx="260" cy="232" r="8"/>
+      <circle cx="365" cy="213" r="6"/>
+      <circle cx="835" cy="213" r="6"/>
+      <circle cx="940" cy="232" r="8"/>
+      <circle cx="510" cy="184" r="6"/>
+      <circle cx="690" cy="184" r="6"/>
+    </g>
+  </g>
+
+  <rect x="250" y="586" width="700" height="58" rx="29" fill="rgba(248,251,255,.08)" stroke="rgba(255,255,255,.24)"/>
+  <text x="600" y="625" text-anchor="middle" font-family="Avenir Next, Arial, sans-serif" font-size="28" font-weight="900" fill="#ffffff">Whom did it belong to?</text>
+</svg>

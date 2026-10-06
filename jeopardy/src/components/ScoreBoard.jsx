@@ -1,6 +1,16 @@
 import '../styles/ScoreBoard.css';
 
-function ScoreBoard({ groups, scores, currentTurn, onExitGame, onUndo, canUndo, onPauseGame }) {
+function ScoreBoard({
+  groups,
+  scores,
+  currentTurn,
+  onExitGame,
+  onUndo,
+  canUndo,
+  onPauseGame,
+  onToggleFullscreen,
+  isFullscreen,
+}) {
   return (
     <div className="score-board">
       {groups.map((group, index) => (
@@ -14,6 +24,9 @@ function ScoreBoard({ groups, scores, currentTurn, onExitGame, onUndo, canUndo, 
         </div>
       ))}
       <div className="host-board-controls">
+        <button className="fullscreen-button" onClick={onToggleFullscreen}>
+          {isFullscreen ? 'Exit Fullscreen' : '⛶ Fullscreen'}
+        </button>
         <button className="pause-game-button" onClick={onPauseGame}>⏸ Pause</button>
         <button className="undo-button" onClick={onUndo} disabled={!canUndo}>↶ Undo</button>
         <button className="exit-button" onClick={onExitGame}>Exit Game</button>

@@ -26,7 +26,7 @@ Open http://localhost:5173 in your browser.
 
 ### Host Password
 
-The default host password is `babyrao2026`. To use a different password, set
+The default host password is `cpe`. To use a different password, set
 `VITE_GAME_PASSWORD` before building or starting the app. This is a lightweight
 client-side gate intended to keep guests from opening the host controls; it is
 not a substitute for server-side authentication.

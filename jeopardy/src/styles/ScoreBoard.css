@@ -111,7 +111,9 @@
 }
 
 .host-board-controls { display: flex; gap: .4rem; flex-wrap: wrap; justify-content: center; }
+.fullscreen-button,
 .pause-game-button,
 .undo-button { padding: .5rem .85rem; border: 0; border-radius: 3px; color: white; background: #586b4c; font-size: .82rem; font-weight: 800; cursor: pointer; }
+.fullscreen-button { background: #0b2f4f; }
 .undo-button { background: #786c5e; }
 .undo-button:disabled { opacity: .38; cursor: not-allowed; }

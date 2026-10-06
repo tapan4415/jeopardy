@@ -4,22 +4,10 @@ import '../styles/ClueModal.css';
 
 const WRONG_SOUNDS = [
   './sounds/wrong/downer_noise.mp3',
-  './sounds/wrong/emotional-damage-meme.mp3',
-  './sounds/wrong/eww-brother-eww.mp3',
-  './sounds/wrong/faaah.mp3',
-  './sounds/wrong/fart_2.mp3',
-  './sounds/wrong/mk3-09455.mp3',
-  './sounds/wrong/undertakers-bell_2UwFCIe.mp3',
-  './sounds/wrong/vine-boom.mp3',
 ];
 
 const RIGHT_SOUNDS = [
-  './sounds/right/7-crore-kbc.mp3',
   './sounds/right/applause.mp3',
-  './sounds/right/honorable.mp3',
-  './sounds/right/shabbashmunna.m4a',
-  './sounds/right/snoop_PbGRau3.mp3',
-  './sounds/right/tejasvi.m4a',
 ];
 
 let nextWrongSoundIndex = 0;
@@ -270,6 +258,20 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed, onBackTo
       );
     }
 
+    if (interaction?.type === 'option-image-grid') {
+      return (
+        <div className="option-image-grid">
+          {interaction.items.map((item) => (
+            <figure className="option-image-card" key={item.label}>
+              <div className="option-label">{item.label}</div>
+              <img src={item.src} alt={item.caption} />
+              <figcaption>{item.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
+      );
+    }
+
     if (interaction?.type === 'zoom-image') {
       return (
         <div className="interactive-media">
@@ -290,6 +292,22 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed, onBackTo
         <div className="monument-image-stage">
           <img src={interaction.src} alt={interaction.alt || 'Monument clue'} />
           {showAnswer && interaction.revealBadge && <span className="reveal-location">{interaction.revealBadge}</span>}
+        </div>
+      );
+    }
+
+    if (interaction?.type === 'covered-image-reveal') {
+      const isRevealed = revealMore || showAnswer;
+      const visibleSrc = isRevealed && interaction.revealSrc ? interaction.revealSrc : interaction.src;
+      return (
+        <div className="interactive-media">
+          <div className={`covered-image-stage ${isRevealed ? 'is-revealed' : ''}`}>
+            <img src={visibleSrc} alt={interaction.alt || 'Covered visual clue'} />
+            {!isRevealed && <div className="image-cover" aria-hidden="true" />}
+          </div>
+          {!isRevealed && (
+            <button className="interaction-button" onClick={() => setRevealMore(true)}>Reveal Face</button>
+          )}
         </div>
       );
     }
@@ -407,6 +425,32 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed, onBackTo
     );
   };
 
+  const renderAnswerMedia = () => {
+    const answerMedia = clue.answerMedia;
+    if (!answerMedia?.src) return null;
+
+    if (answerMedia.type === 'video') {
+      return (
+        <div className="answer-media">
+          <video controls autoPlay preload="metadata">
+            <source src={answerMedia.src} type={answerMedia.mimeType || 'video/mp4'} />
+            Your browser does not support video playback.
+          </video>
+        </div>
+      );
+    }
+
+    if (answerMedia.type === 'image') {
+      return (
+        <div className="answer-media">
+          <img src={answerMedia.src} alt={answerMedia.alt || 'Answer visual'} />
+        </div>
+      );
+    }
+
+    return null;
+  };
+
   return (
     <div className="clue-modal-overlay">
       <div className={`clue-modal ${clue.interaction ? 'visual-clue-modal' : ''}`}>
@@ -451,6 +495,12 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed, onBackTo
                   <span>Why:</span> {clue.explanation}
                 </div>
               )}
+              {clue.funFact && (
+                <div className="answer-explanation fun-fact">
+                  <span>Fun fact:</span> {clue.funFact}
+                </div>
+              )}
+              {renderAnswerMedia()}
               <button className="answer-continue-button" onClick={handleContinue}>Continue to Board →</button>
             </div>
           </div>

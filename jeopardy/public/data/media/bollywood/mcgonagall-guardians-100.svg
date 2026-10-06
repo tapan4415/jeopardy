@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">Professor McGonagall guardians spell clue</title>
+  <desc id="desc">A cinematic illustrated clue card inspired by a stern witch professor summoning stone guardians in a castle hall.</desc>
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="34%" r="75%">
+      <stop offset="0" stop-color="#2f4057"/>
+      <stop offset="0.5" stop-color="#101c2b"/>
+      <stop offset="1" stop-color="#05080d"/>
+    </radialGradient>
+    <linearGradient id="robe" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1e3030"/>
+      <stop offset="0.55" stop-color="#071515"/>
+      <stop offset="1" stop-color="#1c2525"/>
+    </linearGradient>
+    <linearGradient id="stone" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d5d9dd"/>
+      <stop offset="0.5" stop-color="#7d8791"/>
+      <stop offset="1" stop-color="#3d454e"/>
+    </linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#000000" flood-opacity=".58"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="700" fill="url(#bg)"/>
+  <g opacity=".25" stroke="#8d9aaa" stroke-width="5">
+    <path d="M80 650V190h118v460M1002 650V190h118v460"/>
+    <path d="M198 260h804M198 355h804M198 450h804"/>
+    <path d="M270 650V120h118v530M812 650V120h118v530"/>
+  </g>
+
+  <g transform="translate(132 240)" filter="url(#shadow)">
+    <path d="M42 340h168l-24-196H66z" fill="url(#stone)"/>
+    <path d="M66 126h120l-35-64H101z" fill="url(#stone)"/>
+    <circle cx="126" cy="42" r="40" fill="url(#stone)"/>
+    <path d="M58 178h136M70 235h112M82 292h88" stroke="#343d46" stroke-width="8" opacity=".42"/>
+  </g>
+  <g transform="translate(856 240)" filter="url(#shadow)">
+    <path d="M42 340h168l-24-196H66z" fill="url(#stone)"/>
+    <path d="M66 126h120l-35-64H101z" fill="url(#stone)"/>
+    <circle cx="126" cy="42" r="40" fill="url(#stone)"/>
+    <path d="M58 178h136M70 235h112M82 292h88" stroke="#343d46" stroke-width="8" opacity=".42"/>
+  </g>
+
+  <g transform="translate(430 154)" filter="url(#shadow)">
+    <path d="M170 0L70 150h200z" fill="#0a1414"/>
+    <path d="M104 150h132l70 360H34z" fill="url(#robe)"/>
+    <ellipse cx="170" cy="154" rx="80" ry="24" fill="#111"/>
+    <circle cx="170" cy="122" r="58" fill="#e6d5c5"/>
+    <path d="M118 112c18-50 88-58 111 0" fill="#d8d8d8"/>
+    <path d="M122 121c34 16 67 16 98 0" fill="none" stroke="#6f7378" stroke-width="6"/>
+    <path d="M83 242c-82 28-124 54-146 92" fill="none" stroke="#182525" stroke-width="24" stroke-linecap="round"/>
+    <path d="M251 238c80-82 163-110 244-96" fill="none" stroke="#182525" stroke-width="24" stroke-linecap="round"/>
+    <path d="M486 143c-74 13-148 41-225 111" fill="none" stroke="#f7f4c7" stroke-width="7" stroke-linecap="round" filter="url(#glow)"/>
+    <circle cx="494" cy="141" r="8" fill="#fff8c8" filter="url(#glow)"/>
+  </g>
+
+  <text x="600" y="80" text-anchor="middle" font-family="Avenir Next, Arial, sans-serif" font-size="26" font-weight="900" letter-spacing="8" fill="#ffb66b">HOGWARTS DEFENSE</text>
+  <text x="600" y="620" text-anchor="middle" font-family="Avenir Next, Arial, sans-serif" font-size="30" font-weight="900" fill="#ffffff">What spell summons the Guardians of Hogwarts?</text>
+</svg>

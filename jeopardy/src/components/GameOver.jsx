@@ -23,11 +23,11 @@ function GameOver({ scores, clueOwners, questionsPlayed, totalClues, onPlayAgain
       <section className="results-manifest">
         <header className="results-header">
           <div>
-            <div className="results-kicker">Vishwa &amp; Ninad · Flight Summary</div>
-            <h1>{completed ? 'Journey Complete' : 'Game Paused'}</h1>
+            <div className="results-kicker">Walmart Business CPE Team · Final Scoreboard</div>
+            <h1>{completed ? 'Game Complete' : 'Game Paused'}</h1>
             <p>{resultLine}</p>
           </div>
-          <div className="results-stamp">{completed ? 'ARRIVED' : 'EARLY EXIT'}</div>
+          <div className="results-stamp">{completed ? 'FINAL' : 'TIMEOUT'}</div>
         </header>
 
         <div className="results-stats" aria-label="Game statistics">
@@ -68,7 +68,7 @@ function GameOver({ scores, clueOwners, questionsPlayed, totalClues, onPlayAgain
 
         {!completed && (
           <p className="results-note">
-            You ended the game with {totalClues - questionsPlayed} clues still on the board.
+            You called game with {totalClues - questionsPlayed} clues still on the board.
             “Play Again” starts a fresh round with the same teams.
           </p>
         )}

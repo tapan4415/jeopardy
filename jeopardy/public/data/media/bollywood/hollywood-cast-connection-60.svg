@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">Three actor connection clue</title>
+  <desc id="desc">A dramatic clue card showing Christian Bale, Hugh Jackman, and Scarlett Johansson as actor-name portraits.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071829"/>
+      <stop offset="0.52" stop-color="#0f2b46"/>
+      <stop offset="1" stop-color="#160d21"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f8fbff"/>
+      <stop offset="1" stop-color="#d9e0e7"/>
+    </linearGradient>
+    <filter id="shadow" x="-15%" y="-15%" width="130%" height="135%">
+      <feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#000000" flood-opacity=".38"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="700" fill="url(#bg)"/>
+  <g opacity=".18" fill="none" stroke="#f58220" stroke-width="3">
+    <path d="M110 130 C310 40, 430 235, 610 130 S930 80, 1090 180"/>
+    <path d="M80 560 C260 430, 420 610, 610 505 S950 470, 1120 575"/>
+  </g>
+  <text x="600" y="86" text-anchor="middle" font-family="Avenir Next, Arial, sans-serif" font-size="28" font-weight="900" letter-spacing="7" fill="#ffb66b">THREE-ACTOR CONNECTION</text>
+  <text x="600" y="135" text-anchor="middle" font-family="Georgia, serif" font-size="31" fill="#f8fbff">All three appeared in the same film.</text>
+
+  <g transform="translate(100 205)" filter="url(#shadow)">
+    <rect width="280" height="340" rx="16" fill="url(#card)" stroke="#ffffff" stroke-width="4"/>
+    <circle cx="140" cy="111" r="70" fill="#0c263f"/>
+    <path d="M85 292c10-65 102-65 112 0" fill="#0c263f"/>
+    <circle cx="140" cy="91" r="34" fill="#f8fbff"/>
+    <path d="M93 122c26 36 68 44 94 0" fill="#f8fbff"/>
+    <text x="140" y="235" text-anchor="middle" font-family="Avenir Next, Arial, sans-serif" font-size="24" font-weight="900" fill="#0c2136">CHRISTIAN</text>
+    <text x="140" y="270" text-anchor="middle" font-family="Avenir Next, Arial, sans-serif" font-size="32" font-weight="950" fill="#f58220">BALE</text>
+  </g>
+
+  <g transform="translate(460 205)" filter="url(#shadow)">
+    <rect width="280" height="340" rx="16" fill="url(#card)" stroke="#ffffff" stroke-width="4"/>
+    <circle cx="140" cy="111" r="70" fill="#0c263f"/>
+    <path d="M82 292c13-68 104-68 116 0" fill="#0c263f"/>
+    <circle cx="140" cy="91" r="35" fill="#f8fbff"/>
+    <path d="M88 123c31 42 74 43 105 0" fill="#f8fbff"/>
+    <text x="140" y="235" text-anchor="middle" font-family="Avenir Next, Arial, sans-serif" font-size="24" font-weight="900" fill="#0c2136">HUGH</text>
+    <text x="140" y="270" text-anchor="middle" font-family="Avenir Next, Arial, sans-serif" font-size="32" font-weight="950" fill="#f58220">JACKMAN</text>
+  </g>
+
+  <g transform="translate(820 205)" filter="url(#shadow)">
+    <rect width="280" height="340" rx="16" fill="url(#card)" stroke="#ffffff" stroke-width="4"/>
+    <circle cx="140" cy="111" r="70" fill="#0c263f"/>
+    <path d="M76 292c16-73 112-73 128 0" fill="#0c263f"/>
+    <circle cx="140" cy="91" r="34" fill="#f8fbff"/>
+    <path d="M92 122c28 38 68 39 96 0" fill="#f8fbff"/>
+    <text x="140" y="226" text-anchor="middle" font-family="Avenir Next, Arial, sans-serif" font-size="22" font-weight="900" fill="#0c2136">SCARLETT</text>
+    <text x="140" y="268" text-anchor="middle" font-family="Avenir Next, Arial, sans-serif" font-size="29" font-weight="950" fill="#f58220">JOHANSSON</text>
+  </g>
+
+  <text x="600" y="628" text-anchor="middle" font-family="Avenir Next, Arial, sans-serif" font-size="30" font-weight="900" fill="#ffffff">Name the movie.</text>
+</svg>

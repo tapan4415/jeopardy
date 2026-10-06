@@ -13,17 +13,17 @@ body {
   position: relative;
 }
 
-/* Adventure Awaits boarding-pass theme */
+/* Walmart Business CPE Team theme */
 :root {
-  --paper: #fbf4e8;
-  --paper-deep: #efe2cf;
-  --ink: #3d3328;
-  --olive: #586b4c;
-  --olive-dark: #40513a;
-  --orange: #d8792c;
-  --orange-dark: #ae5b22;
-  --tan: #c99a62;
-  --line: rgba(88, 107, 76, 0.38);
+  --paper: #f6f8fb;
+  --paper-deep: #d9e0e7;
+  --ink: #0c2136;
+  --olive: #0071ce;
+  --olive-dark: #041e42;
+  --orange: #ffc220;
+  --orange-dark: #d99f00;
+  --tan: #d5dce5;
+  --line: rgba(255, 255, 255, 0.24);
 }
 
 body {
@@ -94,7 +94,7 @@ body::before {
 }
 
 .setup-screen::before {
-  content: "✈  · · · · · · · · · · · · · · ·  ♥";
+  content: "WALMART BUSINESS  · · · · · · ·  CPE TEAM";
   position: absolute;
   top: 7vh;
   color: var(--orange);
@@ -220,7 +220,7 @@ body::before {
 }
 
 .setup-form::after {
-  content: "BOARDING PASS  •  FAMILY & FRIENDS";
+  content: "WALMART BUSINESS  •  CPE TEAM";
   display: block;
   margin-top: 1.4rem;
   padding-top: 1rem;
@@ -357,9 +357,15 @@ body::before {
 }
 
 .test-round-button {
-  color: var(--orange-dark);
+  color: #041e42;
   border-color: var(--orange);
   border-radius: 3px;
+  background: #ffc220;
+  font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.08rem;
+  text-transform: uppercase;
 }
 
 .test-round-button:hover { background: rgba(216, 121, 44, 0.09); }
@@ -900,3 +906,200 @@ body::before {
 .game-paused-overlay span { color: #f2b878; font-size: .8rem; font-weight: 900; letter-spacing: .2em; }
 .game-paused-overlay h2 { margin: .5rem 0 1.4rem; font: 700 clamp(2.5rem, 8vw, 5rem) Georgia,serif; }
 .game-paused-overlay button { padding: .9rem 1.6rem; border: 0; border-radius: 999px; color: white; background: var(--orange); font-size: 1.1rem; font-weight: 900; cursor: pointer; }
+
+/* Walmart Business CPE Team overrides */
+body {
+  color: #f8fbff;
+  background:
+    linear-gradient(rgba(7, 18, 31, 0.82), rgba(7, 18, 31, 0.92)),
+    radial-gradient(circle at 16% 15%, rgba(255, 194, 32, 0.25), transparent 30%),
+    radial-gradient(circle at 84% 85%, rgba(255, 255, 255, 0.12), transparent 28%),
+    #041e42;
+}
+
+body::before {
+  background:
+    linear-gradient(90deg, transparent 7%, rgba(255, 194, 32, 0.09) 7.1%, transparent 7.2%),
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.025) 0 2px, transparent 2px 10px);
+}
+
+.password-logo {
+  width: min(72vw, 260px);
+  aspect-ratio: 3 / 2;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.walmart-spark {
+  display: grid;
+  place-items: center;
+  color: #ffc220;
+  background: #0071ce;
+  font-size: 4.5rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.password-card h1,
+.setup-form h2,
+.results-header h1 {
+  font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+  letter-spacing: 0;
+}
+
+.password-card {
+  border-color: rgba(255, 194, 32, 0.78);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
+}
+
+.password-card > span,
+.setup-ticket-label,
+.setup-honorees strong,
+.results-kicker {
+  color: var(--orange);
+}
+
+.password-card button,
+.start-button,
+.results-manifest .game-over-btn {
+  background: var(--orange);
+}
+
+.password-card button:hover,
+.start-button:hover,
+.results-manifest .game-over-btn:hover {
+  background: var(--orange-dark);
+}
+
+.ufl-logo-lockup {
+  grid-template-columns: auto;
+  min-width: 0;
+  margin-top: 1rem;
+  font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.ufl-main-logo {
+  justify-self: center;
+  width: min(58vw, 330px);
+  aspect-ratio: 3 / 2;
+  margin-bottom: 0.8rem;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.ufl-logo-lockup .adventure-logo-adventure,
+.ufl-logo-lockup .adventure-logo-awaits {
+  justify-self: center;
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(2.4rem, 7vw, 5.2rem);
+  font-weight: 950;
+  letter-spacing: 0.04rem;
+  text-shadow: 0 3px 0 rgba(0, 0, 0, 0.22);
+}
+
+.ufl-logo-lockup .adventure-logo-awaits {
+  color: var(--orange);
+  font-size: clamp(2rem, 6vw, 4.4rem);
+}
+
+.ufl-logo-lockup::after {
+  content: "SAVE MONEY. LIVE BETTER.";
+  position: static;
+  margin-top: 0.75rem;
+  color: #f6f8fb;
+  font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 900;
+  letter-spacing: 0.28rem;
+}
+
+.setup-form,
+.password-card {
+  color: var(--ink);
+  background: rgba(248, 251, 255, 0.96);
+}
+
+.setup-honorees,
+.setup-subtitle,
+.group-input label {
+  color: #e7f3fb;
+}
+
+.setup-form .group-input label,
+.setup-form h2 {
+  color: var(--olive);
+}
+
+.game-header {
+  background: linear-gradient(135deg, #0071ce, #004f9a);
+  border-color: rgba(255, 194, 32, 0.7);
+}
+
+.game-header-brand {
+  align-items: center;
+}
+
+.game-header-mark {
+  width: 82px;
+  height: 46px;
+  border: 0;
+  border-radius: 0;
+  font-size: 1.8rem;
+}
+
+.walmart-business-logo {
+  object-fit: contain;
+  background: transparent;
+}
+
+.password-card {
+  color: #ffffff;
+  background: #041e42;
+  border-color: #ffc220;
+}
+
+.password-card h1,
+.password-card p {
+  color: #ffffff;
+}
+
+.password-card input {
+  color: #041e42;
+  background: #ffffff;
+}
+
+.game-header-logo {
+  font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.game-header-honorees,
+.game-header-route,
+.category-intro-route {
+  color: #ffc220;
+}
+
+.category-intro-ticket {
+  background: linear-gradient(145deg, #0071ce, #041e42);
+  border-color: #ffffff;
+}
+
+.category-intro-ticket::after {
+  content: "WALMART BUSINESS  · · · · ·  CPE TEAM";
+  color: #ffc220;
+}
+
+.category-intro-name {
+  color: #ffffff;
+}
+
+.results-manifest {
+  background: linear-gradient(145deg, rgba(0, 113, 206, 0.98), rgba(4, 30, 66, 0.98));
+  border-color: rgba(255, 194, 32, 0.62);
+}
