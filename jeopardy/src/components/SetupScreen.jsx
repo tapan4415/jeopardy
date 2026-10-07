@@ -2,6 +2,7 @@ import { useState } from 'react';
 import '../styles/App.css';
 
 function SetupScreen({ onStart, onTestRound }) {
+  const [soundStatus, setSoundStatus] = useState('');
   const [groupNames, setGroupNames] = useState([
     'Team Pilot ✈️',
     'Team Explorer 🧭',
@@ -24,6 +25,21 @@ function SetupScreen({ onStart, onTestRound }) {
 
   const handleTestRound = () => {
     onTestRound(getNames());
+  };
+
+  const handleSoundTest = async () => {
+    const audio = new Audio(`${import.meta.env.BASE_URL}sounds/right/applause.mp3`);
+    audio.volume = 1;
+    try {
+      await audio.play();
+      setSoundStatus('Sound enabled ✓');
+      window.setTimeout(() => {
+        audio.pause();
+        audio.currentTime = 0;
+      }, 1800);
+    } catch {
+      setSoundStatus('Sound is blocked. Unmute this tab/site and raise media volume, then try again.');
+    }
   };
 
   return (
@@ -52,6 +68,10 @@ function SetupScreen({ onStart, onTestRound }) {
           </div>
         ))}
         <div className="setup-buttons">
+          <button type="button" className="sound-test-button" onClick={handleSoundTest}>
+            🔊 Enable &amp; Test Sound
+          </button>
+          {soundStatus && <div className="sound-test-status" role="status">{soundStatus}</div>}
           <button type="submit" className="start-button">
             Start Game
           </button>

@@ -400,7 +400,9 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed, onBackTo
     if (media.type === 'timed-audio') {
       return (
         <div className={`tune-player ${audioIntroDone && !isTuneReplaying ? 'is-finished' : 'is-playing'}`}>
-          <audio ref={clueAudioRef} preload="auto" src={media.src} onEnded={finishAudioIntro} />
+          <audio className="tune-audio-controls" ref={clueAudioRef} controls preload="auto" src={media.src} onEnded={finishAudioIntro}>
+            Your browser cannot play this audio format.
+          </audio>
           <div className="sound-bars" aria-hidden="true">{Array.from({ length: 9 }, (_, index) => <i key={index} />)}</div>
           <strong>{isTuneReplaying ? 'PLAYING AGAIN — TIMER PAUSED' : audioIntroDone ? 'TUNE COMPLETE — TIMER STARTED' : 'LISTEN CAREFULLY…'}</strong>
           <span>{audioIntroDone ? 'Name that tune!' : 'The timer begins when the full clip ends.'}</span>
