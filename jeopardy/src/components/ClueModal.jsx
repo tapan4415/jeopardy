@@ -4,10 +4,22 @@ import '../styles/ClueModal.css';
 
 const WRONG_SOUNDS = [
   './sounds/wrong/downer_noise.mp3',
+  './sounds/wrong/emotional-damage-meme.mp3',
+  './sounds/wrong/eww-brother-eww.mp3',
+  './sounds/wrong/faaah.mp3',
+  './sounds/wrong/fart_2.mp3',
+  './sounds/wrong/mk3-09455.mp3',
+  './sounds/wrong/undertakers-bell_2UwFCIe.mp3',
+  './sounds/wrong/vine-boom.mp3',
 ];
 
 const RIGHT_SOUNDS = [
   './sounds/right/applause.mp3',
+  './sounds/right/7-crore-kbc.mp3',
+  './sounds/right/honorable.mp3',
+  './sounds/right/shabbashmunna.m4a',
+  './sounds/right/snoop_PbGRau3.mp3',
+  './sounds/right/tejasvi.m4a',
 ];
 
 let nextWrongSoundIndex = 0;
