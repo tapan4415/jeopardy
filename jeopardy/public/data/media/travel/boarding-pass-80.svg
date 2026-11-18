@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
   <title id="title">Ultimate Frisbee League travel pass</title>
-  <desc id="desc">A decorative UFL travel pass with destination airport code HND emphasized.</desc>
+  <desc id="desc">A decorative travel pass with destination airport code HND emphasized.</desc>
   <defs>
     <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#f8fbff"/>
@@ -23,7 +23,7 @@
     <text x="150" y="124" font-family="Arial, sans-serif" font-size="16" font-weight="700" letter-spacing="5">NORTH PARK · TRAVEL PASS</text>
   </g>
   <g fill="#f58220">
-    <text x="802" y="104" font-family="Arial, sans-serif" font-size="42" font-weight="900">UFL</text>
+    <text x="802" y="104" font-family="Arial, sans-serif" font-size="42" font-weight="900">TRAVEL</text>
   </g>
 
   <path d="M150 150h720" stroke="#8c806f" stroke-width="2" stroke-dasharray="7 8"/>
@@ -34,7 +34,7 @@
     <text x="650" y="194">DESTINATION AIRPORT</text>
   </g>
   <g font-family="Georgia, serif" fill="#0c2136">
-    <text x="150" y="238" font-size="29" font-weight="700">UFL TEAM</text>
+    <text x="150" y="238" font-size="29" font-weight="700">GAME NIGHT</text>
     <text x="420" y="238" font-size="34" font-weight="700">SJC</text>
   </g>
 
@@ -49,7 +49,7 @@
     <text x="650" y="382">DIVISION</text>
   </g>
   <g font-family="Georgia, serif" fill="#0c2136" font-size="27" font-weight="700">
-    <text x="150" y="426">UFL-080</text>
+    <text x="150" y="426">DD-080</text>
     <text x="330" y="426">NP</text>
     <text x="500" y="426">80</text>
     <text x="650" y="426">MIXED</text>

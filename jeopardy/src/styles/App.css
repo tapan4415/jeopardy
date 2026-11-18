@@ -13,7 +13,7 @@ body {
   position: relative;
 }
 
-/* Walmart Business CPE Team theme */
+/* Event theme */
 :root {
   --paper: #f6f8fb;
   --paper-deep: #d9e0e7;
@@ -94,7 +94,7 @@ body::before {
 }
 
 .setup-screen::before {
-  content: "WALMART BUSINESS  · · · · · · ·  CPE TEAM";
+  content: "DIVY & SHIKHA'S  · · · · ·  DEV-DIWALI";
   position: absolute;
   top: 7vh;
   color: var(--orange);
@@ -220,7 +220,7 @@ body::before {
 }
 
 .setup-form::after {
-  content: "WALMART BUSINESS  •  CPE TEAM";
+  content: "DIVY & SHIKHA'S  •  DEV-DIWALI";
   display: block;
   margin-top: 1.4rem;
   padding-top: 1rem;
@@ -923,7 +923,7 @@ body::before {
 .game-paused-overlay h2 { margin: .5rem 0 1.4rem; font: 700 clamp(2.5rem, 8vw, 5rem) Georgia,serif; }
 .game-paused-overlay button { padding: .9rem 1.6rem; border: 0; border-radius: 999px; color: white; background: var(--orange); font-size: 1.1rem; font-weight: 900; cursor: pointer; }
 
-/* Walmart Business CPE Team overrides */
+/* Celebration overrides */
 body {
   color: #f8fbff;
   background:
@@ -947,7 +947,7 @@ body::before {
   box-shadow: none;
 }
 
-.walmart-spark {
+.festival-spark {
   display: grid;
   place-items: center;
   color: #ffc220;
@@ -1068,7 +1068,7 @@ body::before {
   font-size: 1.8rem;
 }
 
-.walmart-business-logo {
+.festival-logo {
   object-fit: contain;
   background: transparent;
 }
@@ -1107,7 +1107,7 @@ body::before {
 }
 
 .category-intro-ticket::after {
-  content: "WALMART BUSINESS  · · · · ·  CPE TEAM";
+  content: "DIVY & SHIKHA'S  · · · · ·  DEV-DIWALI";
   color: #ffc220;
 }
 
@@ -1118,4 +1118,183 @@ body::before {
 .results-manifest {
   background: linear-gradient(145deg, rgba(0, 113, 206, 0.98), rgba(4, 30, 66, 0.98));
   border-color: rgba(255, 194, 32, 0.62);
+}
+
+/* Divy & Shikha's Dev-Diwali invitation theme */
+:root {
+  --paper: #fffaf0;
+  --paper-deep: #f5e5c6;
+  --ink: #542814;
+  --olive: #385f2b;
+  --olive-dark: #23441f;
+  --orange: #df6a0b;
+  --orange-dark: #b83b13;
+  --tan: #d4a64a;
+  --line: rgba(170, 102, 18, 0.34);
+}
+
+body {
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 6% 4%, rgba(255, 151, 18, .28), transparent 12rem),
+    radial-gradient(circle at 94% 5%, rgba(72, 112, 45, .22), transparent 14rem),
+    linear-gradient(rgba(255, 250, 240, .96), rgba(255, 248, 232, .97)),
+    repeating-linear-gradient(45deg, rgba(189, 126, 25, .04) 0 2px, transparent 2px 14px),
+    #fffaf0;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+body::before {
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 2rem 1.7rem, #f7a10f 0 .65rem, #df6a0b .68rem 1rem, transparent 1.05rem),
+    radial-gradient(circle at 5rem 1.7rem, #ffbd22 0 .65rem, #e8750b .68rem 1rem, transparent 1.05rem);
+  background-size: 6.7rem 3.4rem;
+  background-repeat: repeat-x;
+  opacity: .92;
+}
+
+.password-screen,
+.setup-screen,
+.game-over {
+  background:
+    linear-gradient(rgba(255, 250, 240, .80), rgba(255, 249, 235, .88)),
+    radial-gradient(circle at 50% 112%, #ef7420 0 6%, #f6b42a 6.2% 10%, #23819a 10.2% 14%, #9f2f36 14.2% 18%, transparent 18.4%),
+    repeating-radial-gradient(circle at 50% 112%, transparent 0 22px, rgba(192, 117, 20, .11) 23px 25px, transparent 26px 44px),
+    #fff8e9;
+}
+
+.password-card,
+.setup-form,
+.results-manifest {
+  color: var(--ink);
+  background: rgba(255, 250, 240, .97);
+  border: 2px solid #d49b2f;
+  box-shadow: 0 22px 65px rgba(112, 57, 16, .24), inset 0 0 0 5px rgba(226, 168, 62, .10);
+}
+
+.password-card::before,
+.setup-form::before,
+.results-manifest::before {
+  content: "✦  🪔  ✦";
+  display: block;
+  color: #c34719;
+  text-align: center;
+  letter-spacing: .5rem;
+}
+
+.diwali-diya,
+.diwali-lamp {
+  display: block;
+  font-size: clamp(3.2rem, 10vw, 6rem);
+  line-height: 1;
+  filter: drop-shadow(0 8px 12px rgba(198, 78, 16, .22));
+}
+
+.password-card h1,
+.setup-form h2,
+.results-header h1,
+.game-header-logo,
+.adventure-logo-adventure,
+.adventure-logo-awaits {
+  color: #9f2f36;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.password-card p,
+.password-card > span,
+.setup-ticket-label,
+.setup-honorees,
+.setup-subtitle,
+.group-input label,
+.results-kicker {
+  color: #9a4c1f;
+}
+
+.password-card input,
+.group-input input {
+  color: var(--ink);
+  background: #fffdf7;
+  border-color: #d5a94d;
+}
+
+.password-card button,
+.start-button,
+.results-manifest .game-over-btn {
+  color: #fffaf0;
+  background: linear-gradient(135deg, #d94f0c, #a92f1d);
+  border: 1px solid #efad2b;
+}
+
+.password-card button:hover,
+.start-button:hover,
+.results-manifest .game-over-btn:hover {
+  background: linear-gradient(135deg, #ee7510, #be3a1d);
+}
+
+.diwali-logo-lockup {
+  display: grid;
+  justify-items: center;
+  gap: .35rem;
+  margin-top: 1rem;
+  text-align: center;
+  text-transform: none;
+}
+
+.diwali-logo-lockup .adventure-logo-adventure {
+  margin: 0;
+  color: #9f2f36;
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  font-weight: 700;
+  text-shadow: none;
+}
+
+.diwali-logo-lockup .adventure-logo-awaits {
+  margin: 0;
+  color: #bd6811;
+  font-size: clamp(2.5rem, 7vw, 5.8rem);
+  font-weight: 700;
+  line-height: .98;
+  text-shadow: none;
+}
+
+.game-container {
+  background: transparent;
+}
+
+.game-header {
+  color: #fff8e9;
+  background:
+    linear-gradient(135deg, rgba(159, 47, 54, .98), rgba(177, 67, 21, .98));
+  border-color: #efad2b;
+}
+
+.game-header-mark {
+  display: grid;
+  place-items: center;
+  font-size: 2.3rem;
+}
+
+.game-header-logo { color: #fff6dc; text-transform: none; }
+.game-header-honorees,
+.game-header-route,
+.category-intro-route { color: #ffd36a; }
+
+.category-intro-ticket {
+  background:
+    radial-gradient(circle at 50% 120%, rgba(255, 189, 34, .35), transparent 38%),
+    linear-gradient(145deg, #9f2f36, #b75415);
+  border-color: #efad2b;
+}
+
+.category-intro-ticket::after {
+  content: "DIVY & SHIKHA'S  · · · · ·  DEV-DIWALI";
+  color: #ffd36a;
+}
+
+.category-intro-name { color: #fff8e9; }
+
+.results-manifest {
+  background: rgba(255, 250, 240, .97);
+  border-color: #d49b2f;
 }

@@ -117,3 +117,19 @@
 .fullscreen-button { background: #0b2f4f; }
 .undo-button { background: #786c5e; }
 .undo-button:disabled { opacity: .38; cursor: not-allowed; }
+
+/* Dev-Diwali scoreboard */
+.score-card {
+  color: #542814;
+  background: rgba(255, 250, 240, .96);
+  border-color: #d4a64a;
+  box-shadow: 0 5px 14px rgba(83, 38, 15, .18);
+}
+.score-card.active { background: #f8e2b5; border-color: #c84e18; }
+.group-name { color: #8f3e28; }
+.group-score { color: #b84616; }
+.turn-indicator { color: #3f702d; }
+.fullscreen-button,
+.pause-game-button,
+.undo-button { background: #9f2f36; }
+.exit-button { background: #b84616; }

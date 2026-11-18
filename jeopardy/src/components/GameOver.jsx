@@ -23,7 +23,7 @@ function GameOver({ scores, clueOwners, questionsPlayed, totalClues, onPlayAgain
       <section className="results-manifest">
         <header className="results-header">
           <div>
-            <div className="results-kicker">Walmart Business CPE Team · Final Scoreboard</div>
+            <div className="results-kicker">Divy &amp; Shikha's Dev-Diwali · Final Scoreboard</div>
             <h1>{completed ? 'Game Complete' : 'Game Paused'}</h1>
             <p>{resultLine}</p>
           </div>

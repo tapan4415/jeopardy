@@ -190,3 +190,36 @@
 
 .category-header { font-size: clamp(1rem, 1.8vw, 1.4rem); font-weight: 900; }
 .category-header span { padding: 1rem .45rem .8rem; }
+
+/* Dev-Diwali board */
+.game-board {
+  background: rgba(110, 45, 25, .90);
+  border: 2px solid #e3a72e;
+  box-shadow: inset 0 0 45px rgba(69, 20, 12, .34), 0 12px 34px rgba(105, 52, 18, .20);
+}
+
+.category-header {
+  background: linear-gradient(145deg, #9f2f36, #b85817);
+  border-color: #e4a534;
+  color: #fff8df;
+}
+
+.category-header::after {
+  background: linear-gradient(180deg, rgba(108, 31, 26, .04) 10%, rgba(91, 26, 22, .94) 100%);
+}
+
+.clue-cell {
+  color: #7f2e25;
+  background: linear-gradient(145deg, #fffaf0, #f4dfb8);
+  border-color: #d6a649;
+  box-shadow: 0 4px 10px rgba(77, 29, 13, .24);
+}
+
+.clue-cell:hover:not(.used):not(.owned) {
+  color: #fff8e9;
+  background: linear-gradient(145deg, #df6a0b, #a92f1d);
+  border-color: #efb436;
+}
+
+.clue-cell.used { background: rgba(83, 27, 22, .72); border-color: rgba(239, 180, 54, .18); }
+.clue-cell.owned { background: linear-gradient(145deg, #3f702d, #285120); border-color: #e1ad3e; }

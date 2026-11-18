@@ -260,7 +260,7 @@ function App() {
 
   const handleUnlock = (event) => {
     event.preventDefault();
-    const configuredPassword = import.meta.env.VITE_GAME_PASSWORD || 'cpe';
+    const configuredPassword = import.meta.env.VITE_GAME_PASSWORD || 'diwali';
     if (passwordAttempt === configuredPassword) {
       sessionStorage.setItem('jeopardy-unlocked', 'yes');
       setIsUnlocked(true);
@@ -292,9 +292,9 @@ function App() {
     return (
       <div className="password-screen">
         <form className="password-card" onSubmit={handleUnlock}>
-          <img className="password-logo walmart-business-logo" src="./images/theme/walmart_business_logo_transparent.png" alt="Walmart Business" />
-          <span>PRIVATE TEAM CHECK-IN</span>
-          <h1>Walmart Business CPE Team</h1>
+          <div className="diwali-diya" aria-hidden="true">🪔</div>
+          <span>DEV-DIWALI GAME NIGHT</span>
+          <h1>Divy &amp; Shikha's<br />Dev Diwali Celebration</h1>
           <p>Enter the host password to open the game.</p>
           <input
             type="password"
@@ -331,11 +331,11 @@ function App() {
     <div className="game-container">
       <header className="game-header">
         <div className="game-header-brand">
-          <img className="game-header-mark walmart-business-logo" src="./images/theme/walmart_business_logo_transparent.png" alt="" />
-          <span className="game-header-logo">Walmart Business</span>
-          <span className="game-header-honorees">CPE Team Jeopardy</span>
+          <span className="game-header-mark" aria-hidden="true">🪔</span>
+          <span className="game-header-logo">Dev-Diwali</span>
+          <span className="game-header-honorees">Divy &amp; Shikha's Celebration</span>
         </div>
-        <div className="game-header-route" aria-hidden="true">WALMART BUSINESS • CPE TEAM</div>
+        <div className="game-header-route" aria-hidden="true">LIGHTS • LAUGHTER • GAME NIGHT</div>
       </header>
       <ScoreBoard
         groups={groups}
@@ -360,7 +360,7 @@ function App() {
             <div className="category-intro-kicker">Now on the line</div>
             {categoryIntro.image && <img src={categoryIntro.image} alt="" />}
             <div className="category-intro-name">{categoryIntro.name}</div>
-            <div className="category-intro-route">Walmart Business&nbsp;&nbsp;•&nbsp;&nbsp;CPE Team</div>
+            <div className="category-intro-route">Divy &amp; Shikha's&nbsp;&nbsp;•&nbsp;&nbsp;Dev-Diwali</div>
           </div>
         </div>
       )}

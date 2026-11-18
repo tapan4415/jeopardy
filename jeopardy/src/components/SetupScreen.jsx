@@ -4,10 +4,10 @@ import '../styles/App.css';
 function SetupScreen({ onStart, onTestRound }) {
   const [soundStatus, setSoundStatus] = useState('');
   const [groupNames, setGroupNames] = useState([
-    'Team Pilot ✈️',
-    'Team Explorer 🧭',
-    'Team Voyager 🌍',
-    'Team Adventurer 🎈',
+    'Team Diya 🪔',
+    'Team Rangoli 🌸',
+    'Team Mithai 🍬',
+    'Team Pataka ✨',
   ]);
 
   const handleChange = (index, value) => {
@@ -44,14 +44,14 @@ function SetupScreen({ onStart, onTestRound }) {
 
   return (
     <div className="setup-screen">
-      <div className="setup-ticket-label">Walmart Business · CPE Team Jeopardy</div>
-      <div className="adventure-logo ufl-logo-lockup" aria-label="Walmart Business CPE Team">
-        <img className="ufl-main-logo walmart-business-logo" src="./images/theme/walmart_business_logo_transparent.png" alt="Walmart Business" />
-        <span className="adventure-logo-adventure">Walmart Business</span>
-        <span className="adventure-logo-awaits">CPE Team</span>
+      <div className="setup-ticket-label">LIGHTS · LAUGHTER · GAME NIGHT</div>
+      <div className="adventure-logo diwali-logo-lockup" aria-label="Divy and Shikha's Dev Diwali Celebration">
+        <span className="diwali-lamp" aria-hidden="true">🪔</span>
+        <span className="adventure-logo-adventure">Divy &amp; Shikha's</span>
+        <span className="adventure-logo-awaits">Dev Diwali Celebration</span>
       </div>
-      <p className="setup-honorees"><strong>CPE Team</strong> game time</p>
-      <p className="setup-subtitle">Teams ready for big ideas, quick answers, and business trivia</p>
+      <p className="setup-honorees"><strong>Let the festivities begin</strong></p>
+      <p className="setup-subtitle">Gather your team for quick answers, friendly rivalry, and plenty of dhamaaka.</p>
       <form onSubmit={handleStartGame} className="setup-form">
         <h2>Team Check-In</h2>
         {groupNames.map((name, index) => (
