@@ -69,6 +69,7 @@ function playCappedSound(src, label) {
 
 function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed, onBackToBoard, isGamePaused }) {
   const isTimedAudioClue = clue.media?.type === 'timed-audio';
+  const isCommonBond = clue.interaction?.type === 'common-bond';
   const clueAudioRef = useRef(null);
   const audioIntroFinishedRef = useRef(false);
   const gamePauseWasRunningRef = useRef(false);
@@ -248,6 +249,18 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed, onBackTo
 
   const renderMedia = () => {
     const interaction = clue.interaction;
+
+    if (interaction?.type === 'common-bond') {
+      return (
+        <div className="common-bond-grid" aria-label="Three visual clues">
+          {interaction.items.map((item) => (
+            <div className="common-bond-panel" key={item.src}>
+              <img src={item.src} alt={item.alt || 'Visual clue'} />
+            </div>
+          ))}
+        </div>
+      );
+    }
 
     if (interaction?.type === 'progressive-image') {
       return (
@@ -474,7 +487,7 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed, onBackTo
 
   return (
     <div className="clue-modal-overlay">
-      <div className={`clue-modal ${clue.interaction ? 'visual-clue-modal' : ''}`}>
+      <div className={`clue-modal ${clue.interaction ? 'visual-clue-modal' : ''} ${isCommonBond ? 'common-bond-modal' : ''}`}>
         <button className="back-to-board-button" onClick={handleBackToBoard}>
           ← Back to Board
         </button>
@@ -502,7 +515,7 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed, onBackTo
 
         {/* Answer revealed overlay */}
         {showAnswer && (
-          <div className={`answer-overlay ${clue.interaction ? 'interaction-answer' : ''} ${answerResult === 'correct' ? 'correct-feedback' : 'all-failed-feedback'}`}>
+          <div className={`answer-overlay ${clue.interaction ? 'interaction-answer' : ''} ${isCommonBond ? 'common-bond-answer' : ''} ${answerResult === 'correct' ? 'correct-feedback' : 'all-failed-feedback'}`}>
             {answerResult === 'correct' && (
               <div className="confetti" aria-hidden="true">
                 {Array.from({ length: 18 }, (_, index) => <span key={index} />)}
@@ -514,36 +527,38 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed, onBackTo
               </span>
               <span>{answerResult === 'correct' ? 'Correct!' : 'No team answered'}</span>
               <div className="answer-text">{clue.answer}</div>
-              {clue.explanation && (
+              {!isCommonBond && clue.explanation && (
                 <div className="answer-explanation">
                   <span>Why:</span> {clue.explanation}
                 </div>
               )}
-              {clue.funFact && (
+              {!isCommonBond && clue.funFact && (
                 <div className="answer-explanation fun-fact">
                   <span>Fun fact:</span> {clue.funFact}
                 </div>
               )}
-              {renderAnswerMedia()}
-              <button
+              {!isCommonBond && renderAnswerMedia()}
+              {!isCommonBond && <button
                 className="feedback-sound-button"
                 onClick={answerResult === 'correct' ? playRightSound : playWrongSound}
               >
                 🔊 Replay {answerResult === 'correct' ? 'Correct' : 'Wrong'} Sound
-              </button>
+              </button>}
               <button className="answer-continue-button" onClick={handleContinue}>Continue to Board →</button>
             </div>
           </div>
         )}
 
-        <div className="answering-team">
-          🎯 {groups[answeringTeamIndex]}'s turn to answer
-        </div>
+        {!isCommonBond && <>
+          <div className="answering-team">
+            🎯 {groups[answeringTeamIndex]}'s turn to answer
+          </div>
 
-        <div className="clue-value">{clue.value} POINTS</div>
-        {clue.title && <div className="clue-title">{clue.title}</div>}
-        {clue.supportingLine && <div className="clue-supporting-line">{clue.supportingLine}</div>}
-        <div className="clue-text">{clue.clue}</div>
+          <div className="clue-value">{clue.value} POINTS</div>
+          {clue.title && <div className="clue-title">{clue.title}</div>}
+          {clue.supportingLine && <div className="clue-supporting-line">{clue.supportingLine}</div>}
+          <div className="clue-text">{clue.clue}</div>
+        </>}
 
         {renderMedia()}
 
@@ -583,7 +598,7 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed, onBackTo
           </div>
         )}
 
-        <div className="attempts-info">
+        <div className={`attempts-info ${isCommonBond ? 'common-bond-attempts' : ''}`}>
           Teams remaining after this team: {groups.length - teamsAttempted - 1}
         </div>
       </div>

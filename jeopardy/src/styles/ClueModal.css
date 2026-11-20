@@ -259,6 +259,79 @@
 .food-reveal-stage, .food-map-stage { position: relative; width: min(100%, 800px); height: 330px; margin: .5rem auto 1rem; overflow: hidden; border: 2px solid #b89564; border-radius: 10px; background: #ead9bd; }
 .food-reveal-stage img, .food-map-stage > img { width: 100%; height: 100%; object-fit: cover; animation: silhouetteFade 550ms ease both; }
 
+/* Common Bond: the three photographs are the entire clue */
+.common-bond-modal,
+.visual-clue-modal.common-bond-modal {
+  justify-content: center;
+  gap: clamp(.75rem, 1.6vh, 1.4rem);
+  color: #fff;
+  background: #090909;
+}
+
+.common-bond-modal::before { display: none; }
+
+.common-bond-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(.7rem, 1.6vw, 1.5rem);
+  width: min(94vw, 1500px);
+  margin: 0 auto;
+}
+
+.common-bond-panel {
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  background: #111;
+  border: 1px solid rgba(255, 255, 255, .16);
+  border-radius: 8px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, .5);
+}
+
+.common-bond-panel img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.common-bond-modal .start-question-timer,
+.common-bond-modal .timer-control-panel,
+.common-bond-modal .judge-buttons {
+  position: relative;
+  z-index: 2;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.common-bond-modal .timer-control-panel { width: min(92vw, 820px); }
+.common-bond-modal .common-bond-attempts { color: rgba(255, 255, 255, .64); }
+
+.common-bond-answer {
+  color: #fff;
+  background: rgba(5, 5, 5, .97);
+}
+
+.common-bond-answer .answer-revealed > span {
+  display: none;
+}
+
+.common-bond-answer .answer-text {
+  margin: 0 0 1.6rem;
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(4rem, 12vw, 10rem);
+  font-weight: 900;
+  letter-spacing: .08em;
+  line-height: .9;
+  text-transform: uppercase;
+}
+
+@media (max-width: 760px) {
+  .common-bond-grid { grid-template-columns: 1fr; width: min(92vw, 560px); }
+  .common-bond-panel { aspect-ratio: 16 / 8; }
+  .common-bond-modal { justify-content: flex-start; padding-top: 4.5rem; }
+}
+
 /* Dev-Diwali clue card */
 .clue-modal-overlay { background: rgba(55, 20, 18, .87); }
 .clue-modal {
