@@ -560,6 +560,8 @@ function ClueModal({ clue, groups, currentTurn, onCorrect, onAllFailed, onBackTo
           <div className="clue-text">{clue.clue}</div>
         </>}
 
+        {isCommonBond && <div className="common-bond-question">{clue.clue}</div>}
+
         {renderMedia()}
 
         {!timerStarted && !isTimedAudioClue && !showAnswer && (
